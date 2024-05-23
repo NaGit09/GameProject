@@ -2,6 +2,7 @@ package Model.event;
 
 import Controller.GameController;
 import Model.asset.Asset;
+import Model.asset.entity.player.Player;
 
 public class EventHandler {
 
@@ -78,24 +79,24 @@ public class EventHandler {
         boolean hit = false;
 
         if (map == gameController.getCurrentMap()) {
-
-            gameController.getPlayer().getCollisionArea().x = gameController.getPlayer().getWorldX() + gameController.getPlayer().getCollisionArea().x;
-            gameController.getPlayer().getCollisionArea().y = gameController.getPlayer().getWorldY() + gameController.getPlayer().getCollisionArea().y;
+            Player player = gameController.getPlayer();
+            player.getCollisionArea().x = player.getWorldX() + player.getCollisionArea().x;
+            player.getCollisionArea().y = player.getWorldY() + player.getCollisionArea().y;
 
             eventRect[map][col][row].x = col * gameController.getTileSize() + eventRect[map][col][row].x;
             eventRect[map][col][row].y = row * gameController.getTileSize() + eventRect[map][col][row].y;
 
-            if (gameController.getPlayer().getCollisionArea().intersects(eventRect[map][col][row]) && !eventRect[map][col][row].isEventDone()) {
-                if (gameController.getPlayer().getDirection().contentEquals(requiredDirection) || requiredDirection.contentEquals("any")) {
+            if (player.getCollisionArea().intersects(eventRect[map][col][row]) && !eventRect[map][col][row].isEventDone()) {
+                if (player.getDirection().contentEquals(requiredDirection) || requiredDirection.contentEquals("any")) {
                     hit = true;
 
-                    previousEventX = gameController.getPlayer().getWorldX();
-                    previousEventY = gameController.getPlayer().getWorldY();
+                    previousEventX = player.getWorldX();
+                    previousEventY = player.getWorldY();
                 }
             }
 
-            gameController.getPlayer().getCollisionArea().x = gameController.getPlayer().getCollisionDefaultX();
-            gameController.getPlayer().getCollisionArea().y = gameController.getPlayer().getCollisionDefaultY();
+            player.getCollisionArea().x = player.getCollisionDefaultX();
+            player.getCollisionArea().y = player.getCollisionDefaultY();
 
             eventRect[map][col][row].x = eventRect[map][col][row].getEventRectDefaultX();
             eventRect[map][col][row].y = eventRect[map][col][row].getEventRectDefaultY();

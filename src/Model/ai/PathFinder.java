@@ -2,6 +2,7 @@ package Model.ai;
 
 import Controller.GameController;
 import Model.asset.entity.Entity;
+import Model.asset.tile.interactive.InteractiveTile;
 
 import java.util.ArrayList;
 
@@ -73,13 +74,15 @@ public class PathFinder {
         int row = 0;
         while (col < gameController.getMaxWorldColumns() && row < gameController.getMaxWorldRows()) {
             int tileNum = gameController.tileManager.mapTileNumbers[gameController.currentMap][col][row];
+
             if (gameController.tileManager.tiles[tileNum].collision) {
                 node[col][row].solid = true;
             }
             for (int i = 0; i < gameController.interactiveTiles[1].length; i++) {
-                if (gameController.interactiveTiles[gameController.currentMap][i] != null && gameController.interactiveTiles[gameController.currentMap][i].isDestructible()) {
-                    int iCol = gameController.interactiveTiles[gameController.currentMap][i].getWorldX() / gameController.getTileSize();
-                    int iRow = gameController.interactiveTiles[gameController.currentMap][i].getWorldY() / gameController.getTileSize();
+                InteractiveTile IT = gameController.interactiveTiles[gameController.currentMap][i];
+                if (IT != null && IT.isDestructible()) {
+                    int iCol = IT.getWorldX() / gameController.getTileSize();
+                    int iRow = IT.getWorldY() / gameController.getTileSize();
                     node[iCol][iRow].solid = true;
 
                 }
@@ -135,6 +138,7 @@ public class PathFinder {
             }
             int bestNodeIndex =0;
             int bestNodefCost = 999;
+
             for (int i = 0; i < openList.size(); i++) {
                 if (openList.get(i).fCost < bestNodefCost){
                     bestNodeIndex = i;

@@ -1,5 +1,6 @@
-package Controller;
+package Model.util;
 
+import Controller.GameController;
 import Model.asset.Asset;
 import Model.asset.entity.Entity;
 import Model.asset.entity.player.Player;
@@ -7,6 +8,7 @@ import Model.asset.object.Object;
 import Model.asset.object.usable.pickuponly.OBJ_Coin_Bronze;
 import Model.asset.object.usable.pickuponly.OBJ_Heart;
 import Model.asset.object.usable.pickuponly.OBJ_ManaCrystal;
+import Model.event.EventHandler;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -68,51 +70,45 @@ public class UI {
         this.graphics2D = graphics2D;
 
         setupDefaultGraphics(graphics2D);
+        switch (gameController.getGameState()) {
+            case titleState -> {
+                drawTitleScreen();
+            }
+            case playState -> {
+                drawPlayerLife();
+                drawPlayerMana();
+                drawMessages();
+            }
+            case pauseState -> {
+                drawPlayerLife();
+                drawPlayerMana();
+                drawPauseScreen();
+            }
+            case dialogueState -> {
+                drawDialogueScreen();
+            }
+            case characterState -> {
+                drawCharacterScreen();
+                drawInventoryScreen(gameController.getPlayer(), true);
+            }
+            case optionState -> {
+                drawOptionScreen();
+            }
+            case gameOverState ->  {
+                drawGameOverScreen();
+            }
+            case transitionState ->  {
+                drawTransitionScreen();
+            }
+            case tradeState -> {
+                drawTradeScreen();
+            }
+            case gameClear -> {
+                drawGameClearScreen();
+            }
 
-        if (gameController.getGameState() == GameController.typeGame.titleState) {
-            drawTitleScreen();
         }
 
-        if (gameController.getGameState() == GameController.typeGame.playState) {
-            drawPlayerLife();
-            drawPlayerMana();
-            drawMessages();
-        }
-
-        if (gameController.getGameState() == GameController.typeGame.pauseState) {
-            drawPlayerLife();
-            drawPlayerMana();
-            drawPauseScreen();
-        }
-
-        if (gameController.getGameState() == GameController.typeGame.dialogueState) {
-            drawDialogueScreen();
-        }
-
-        if (gameController.getGameState() == GameController.typeGame.characterState) {
-            drawCharacterScreen();
-            drawInventoryScreen(gameController.getPlayer(), true);
-        }
-
-        if (gameController.getGameState() == GameController.typeGame.optionState) {
-            drawOptionScreen();
-        }
-
-        if (gameController.getGameState() == GameController.typeGame.gameOverState) {
-            drawGameOverScreen();
-        }
-
-        if (gameController.getGameState() == GameController.typeGame.transitionState) {
-            drawTransitionScreen();
-
-        }
-
-        if (gameController.getGameState() == GameController.typeGame.tradeState) {
-            drawTradeScreen();
-        }
-        if (gameController.getGameState() ==GameController.typeGame.gameClear) {
-            drawGameClearScreen();
-        }
     }
 
 
@@ -171,22 +167,11 @@ public class UI {
             }
         }
 
-        text = "LOAD GAME";
-        x = UtilityTool.getXForCenterOfText(text, gameController, graphics2D);
-        y += gameController.getTileSize();
-        graphics2D.drawString(text, x, y);
-        if (commandNumber == 1) {
-            graphics2D.drawString(">", x - gameController.getTileSize(), y);
-            if (gameController.getKeyHandler().isEnterPressed()) {
-                // Later
-            }
-        }
-
         text = "QUIT";
         x = UtilityTool.getXForCenterOfText(text, gameController, graphics2D);
         y += gameController.getTileSize();
         graphics2D.drawString(text, x, y);
-        if (commandNumber == 2) {
+        if (commandNumber == 1) {
             graphics2D.drawString(">", x - gameController.getTileSize(), y);
             if (gameController.getKeyHandler().isEnterPressed()) {
                 System.exit(0);
@@ -250,7 +235,7 @@ public class UI {
 
         text = "Cancel";
         x = UtilityTool.getXForCenterOfText(text, gameController, graphics2D);
-        y += gameController.getTileSize() * 2;
+        y += gameController.getTileSize();
         graphics2D.drawString(text, x, y);
 
         if (commandNumber == 3) {
@@ -421,55 +406,58 @@ public class UI {
     }
 
     private void drawValues(int textY, int lineHeight, int tailX) {
+
         int textX;
         String value;
+        Player player = gameController.getPlayer();
 
-        value = String.valueOf(gameController.getPlayer().getLevel());
+
+        value = String.valueOf(player.getLevel());
         textX = UtilityTool.getXForAlightToRightOfText(value, tailX, gameController, graphics2D);
         graphics2D.drawString(value, textX, textY);
         textY += lineHeight;
 
-        value = gameController.getPlayer().getCurrentLife() + "/" + gameController.getPlayer().getMaxLife();
+        value = player.getCurrentLife() + "/" + player.getMaxLife();
         textX = UtilityTool.getXForAlightToRightOfText(value, tailX, gameController, graphics2D);
         graphics2D.drawString(value, textX, textY);
         textY += lineHeight;
 
-        value = gameController.getPlayer().getCurrentMana() + "/" + gameController.getPlayer().getMaxMana();
+        value = player.getCurrentMana() + "/" + player.getMaxMana();
         textX = UtilityTool.getXForAlightToRightOfText(value, tailX, gameController, graphics2D);
         graphics2D.drawString(value, textX, textY);
         textY += lineHeight;
 
-        value = String.valueOf(gameController.getPlayer().getStrength());
+        value = String.valueOf(player.getStrength());
         textX = UtilityTool.getXForAlightToRightOfText(value, tailX, gameController, graphics2D);
         graphics2D.drawString(value, textX, textY);
         textY += lineHeight;
 
-        value = String.valueOf(gameController.getPlayer().getDexterity());
+        value = String.valueOf(player.getDexterity());
         textX = UtilityTool.getXForAlightToRightOfText(value, tailX, gameController, graphics2D);
         graphics2D.drawString(value, textX, textY);
         textY += lineHeight;
 
-        value = String.valueOf(gameController.getPlayer().getAttackPower());
+        value = String.valueOf(player.getAttackPower());
         textX = UtilityTool.getXForAlightToRightOfText(value, tailX, gameController, graphics2D);
         graphics2D.drawString(value, textX, textY);
         textY += lineHeight;
 
-        value = String.valueOf(gameController.getPlayer().getDefensePower());
+        value = String.valueOf(player.getDefensePower());
         textX = UtilityTool.getXForAlightToRightOfText(value, tailX, gameController, graphics2D);
         graphics2D.drawString(value, textX, textY);
         textY += lineHeight;
 
-        value = String.valueOf(gameController.getPlayer().getExp());
+        value = String.valueOf(player.getExp());
         textX = UtilityTool.getXForAlightToRightOfText(value, tailX, gameController, graphics2D);
         graphics2D.drawString(value, textX, textY);
         textY += lineHeight;
 
-        value = String.valueOf(gameController.getPlayer().getNextLevelExp());
+        value = String.valueOf(player.getNextLevelExp());
         textX = UtilityTool.getXForAlightToRightOfText(value, tailX, gameController, graphics2D);
         graphics2D.drawString(value, textX, textY);
         textY += lineHeight;
 
-        value = String.valueOf(gameController.getPlayer().getCoins());
+        value = String.valueOf(player.getCoins());
         textX = UtilityTool.getXForAlightToRightOfText(value, tailX, gameController, graphics2D);
         graphics2D.drawString(value, textX, textY);
         textY += lineHeight;
@@ -737,39 +725,43 @@ public class UI {
         int textX;
         int textY;
 
+        // value lấy từ gameController
+        int tileSize = gameController.getTileSize();
+
+
         // TITLE
         String text = "Controls";
         textX = UtilityTool.getXForCenterOfText(text, gameController, graphics2D);
-        textY = frameY + gameController.getTileSize();
+        textY = frameY + tileSize;
         graphics2D.drawString(text, textX, textY);
 
-        textX = frameX + gameController.getTileSize();
-        textY += gameController.getTileSize();
+        textX = frameX + tileSize;
+        textY += tileSize;
         graphics2D.drawString("Move", textX, textY);
-        graphics2D.drawString("WASD", textX + gameController.getTileSize() * 5, textY);
-        textY += gameController.getTileSize();
+        graphics2D.drawString("WASD", textX + tileSize * 5, textY);
+        textY += tileSize;
         graphics2D.drawString("Confirm/Interact", textX, textY);
-        graphics2D.drawString("ENTER", textX + gameController.getTileSize() * 5, textY);
+        graphics2D.drawString("ENTER", textX + tileSize * 5, textY);
 
-        textY += gameController.getTileSize();
+        textY += tileSize;
         graphics2D.drawString("Attack", textX, textY);
-        graphics2D.drawString("SPACE", textX + gameController.getTileSize() * 5, textY);
+        graphics2D.drawString("SPACE", textX + tileSize * 5, textY);
 
-        textY += gameController.getTileSize();
+        textY += tileSize;
         graphics2D.drawString("Shoot Projectile", textX, textY);
-        graphics2D.drawString("F", textX + gameController.getTileSize() * 5, textY);
+        graphics2D.drawString("F", textX + tileSize * 5, textY);
 
-        textY += gameController.getTileSize();
+        textY += tileSize;
         graphics2D.drawString("Character Screen", textX, textY);
-        graphics2D.drawString("C", textX + gameController.getTileSize() * 5, textY);
+        graphics2D.drawString("C", textX + tileSize * 5, textY);
 
-        textY += gameController.getTileSize();
+        textY += tileSize;
         graphics2D.drawString("Pause", textX, textY);
-        graphics2D.drawString("P", textX + gameController.getTileSize() * 5, textY);
+        graphics2D.drawString("P", textX + tileSize * 5, textY);
 
         // BACK
-        textX = frameX + gameController.getTileSize();
-        textY = frameY + gameController.getTileSize() * 9;
+        textX = frameX + tileSize;
+        textY = frameY + tileSize * 9;
         graphics2D.drawString("Back", textX, textY);
         graphics2D.drawString(">", textX - 25, textY);
         if (gameController.getKeyHandler().isEnterPressed()) {
@@ -872,15 +864,19 @@ public class UI {
         counter++;
         graphics2D.setColor(new Color(0, 0, 0, counter * 5));
         graphics2D.fillRect(0, 0, gameController.getScreenWidth(), gameController.getScreenHeight());
+        // value lấy từ gameController
+        Player player = gameController.getPlayer();
+        EventHandler eventHandle =  gameController.getEventHandler();
+        int tileSize = gameController.getTileSize();
 
         if (counter == 50) {
             counter = 0;
             gameController.setGameState(gameController.getPlayState());
-            gameController.setCurrentMap(gameController.getEventHandler().getTempMap());
-            gameController.getPlayer().setWorldX(gameController.getTileSize() * gameController.getEventHandler().getTempCol());
-            gameController.getPlayer().setWorldY(gameController.getTileSize() * gameController.getEventHandler().getTempRow());
-            gameController.getEventHandler().setPreviousEventX(gameController.getPlayer().getWorldX());
-            gameController.getEventHandler().setPreviousEventY(gameController.getPlayer().getWorldY());
+            gameController.setCurrentMap(eventHandle.getTempMap());
+            player.setWorldX(tileSize * eventHandle.getTempCol());
+            player.setWorldY(tileSize * eventHandle.getTempRow());
+            eventHandle.setPreviousEventX(player.getWorldX());
+            eventHandle.setPreviousEventY(player.getWorldY());
         }
     }
 

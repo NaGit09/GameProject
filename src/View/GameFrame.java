@@ -4,6 +4,7 @@ import javax.swing.*;
 
 public class GameFrame  extends JFrame {
     public GameFrame() {
+
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setResizable(false);
         setTitle("Paradise adventure");
@@ -15,7 +16,6 @@ public class GameFrame  extends JFrame {
         setLocationRelativeTo(null);
         setVisible(true);
 
-        gp.getGc().setUpGame();
-        gp.getGc().startGameThread();
+       gp.excuteGame();
     }
 }

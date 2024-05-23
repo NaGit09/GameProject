@@ -29,7 +29,7 @@ public class NPC_Wizard  extends NPC{
     }
 
     public void setDialogue() {
-        getDialogues()[0] = "He he, so you found me. \nI have some good stuff. \nDo you want to trade?";
+        getDialogues()[0] = "He he, tôi bán các loại thuốc ma thuật \n Bạn có muốn mua không  ?";
     }
 
     public void setItems() {

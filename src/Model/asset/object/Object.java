@@ -2,7 +2,7 @@ package Model.asset.object;
 
 import Controller.GameController;
 import Model.asset.Asset;
-import Controller.UtilityTool;
+import Model.util.UtilityTool;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;

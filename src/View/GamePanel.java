@@ -21,4 +21,8 @@ public class GamePanel extends JPanel {
     public GameController getGc() {
         return gc;
     }
+    public void excuteGame () {
+        gc.setUpGame();
+        gc.startGameThread();
+    }
 }

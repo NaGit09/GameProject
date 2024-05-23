@@ -10,6 +10,7 @@ import Model.asset.tile.TileManager;
 import Model.asset.tile.interactive.InteractiveTile;
 import Model.event.EventHandler;
 import Model.sound.SoundManager;
+import Model.util.UI;
 import View.GamePanel;
 import Model.util.CollisionChecker;
 import Model.util.KeyHandler;
@@ -62,6 +63,7 @@ public class GameController implements Runnable {
     public final InteractiveTile[][] interactiveTiles = new InteractiveTile[Constants.maxMaps][50];
     public final List<Asset> projectiles = new ArrayList<>();
     public final List<Asset> particles = new ArrayList<>();
+
     public final GamePanel gp;
 
     public GameController(GamePanel gp) {
@@ -221,6 +223,45 @@ public class GameController implements Runnable {
         }
     }
 
+
+    public void addAssets() {
+        assets.add(player);
+
+        for (int i = 0; i < npcs[1].length; i++) {
+            if (npcs[currentMap][i] != null) {
+                assets.add(npcs[currentMap][i]);
+            }
+        }
+
+        for (int i = 0; i < objects[1].length; i++) {
+            if (objects[currentMap][i] != null) {
+                assets.add(objects[currentMap][i]);
+            }
+        }
+
+        for (int i = 0; i < monsters[1].length; i++) {
+            if (monsters[currentMap][i] != null) {
+                assets.add(monsters[currentMap][i]);
+            }
+        }
+
+        for (Asset projectile : projectiles) {
+            if (projectile != null) {
+                assets.add(projectile);
+            }
+        }
+
+        for (Asset particle : particles) {
+            if (particle != null) {
+                assets.add(particle);
+            }
+        }
+    }
+
+    public void sortAssets() {
+        assets.sort(Comparator.comparingInt(Asset::getWorldY));
+    }
+    // DRAW METOD
     public void drawToTempScreen() {
 
         // DEBUG
@@ -260,44 +301,6 @@ public class GameController implements Runnable {
                 interactiveTiles[currentMap][i].draw(graphics2D);
             }
         }
-    }
-
-    public void addAssets() {
-        assets.add(player);
-
-        for (int i = 0; i < npcs[1].length; i++) {
-            if (npcs[currentMap][i] != null) {
-                assets.add(npcs[currentMap][i]);
-            }
-        }
-
-        for (int i = 0; i < objects[1].length; i++) {
-            if (objects[currentMap][i] != null) {
-                assets.add(objects[currentMap][i]);
-            }
-        }
-
-        for (int i = 0; i < monsters[1].length; i++) {
-            if (monsters[currentMap][i] != null) {
-                assets.add(monsters[currentMap][i]);
-            }
-        }
-
-        for (Asset projectile : projectiles) {
-            if (projectile != null) {
-                assets.add(projectile);
-            }
-        }
-
-        for (Asset particle : particles) {
-            if (particle != null) {
-                assets.add(particle);
-            }
-        }
-    }
-
-    public void sortAssets() {
-        assets.sort(Comparator.comparingInt(Asset::getWorldY));
     }
 
     public void drawAssets(Graphics2D graphics2D) {

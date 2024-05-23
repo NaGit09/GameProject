@@ -525,11 +525,12 @@ public class Player extends Entity {
         }
 
         if (isAttacking()) {
+            int tileSize = getgameController().getTileSize();
             switch (getDirection()) {
                 case "up" ->
-                        graphics2D.drawImage(getDirectionalAnimationImage(), x, y - getgameController().getTileSize(), null);
+                        graphics2D.drawImage(getDirectionalAnimationImage(), x, y - tileSize, null);
                 case "left" ->
-                        graphics2D.drawImage(getDirectionalAnimationImage(), x - getgameController().getTileSize(), y, null);
+                        graphics2D.drawImage(getDirectionalAnimationImage(), x - tileSize, y, null);
                 default -> graphics2D.drawImage(getDirectionalAnimationImage(), x, y, null);
             }
         } else {

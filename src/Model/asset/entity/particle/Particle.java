@@ -3,7 +3,9 @@ package Model.asset.entity.particle;
 import Controller.GameController;
 import Model.asset.Asset;
 import Model.asset.entity.Entity;
+import Model.asset.entity.player.Player;
 
+import javax.swing.text.PlainDocument;
 import java.awt.*;
 
 public class Particle extends Entity {
@@ -49,8 +51,9 @@ public class Particle extends Entity {
 
     @Override
     public void draw(Graphics2D graphics2D) {
-        int screenX = getWorldX() - getgameController().getPlayer().getWorldX() + getgameController().getPlayer().getScreenX();
-        int screenY = getWorldY() - getgameController().getPlayer().getWorldY() + getgameController().getPlayer().getScreenY();
+        Player player = getgameController().getPlayer();
+        int screenX = getWorldX() - player.getWorldX() + player.getScreenX();
+        int screenY = getWorldY() - player.getWorldY() + player.getScreenY();
 
         graphics2D.setColor(color);
         graphics2D.fillRect(screenX, screenY, size, size);

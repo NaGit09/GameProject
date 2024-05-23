@@ -1,9 +1,6 @@
 package Controller;
 
 public final class Constants {
-    public static  enum typeGame {
-        titleState,playState,pauseState,dialogueState,characterState,optionState,transitionState,gameOverState,tradeState,gameClear
-    }
     public static final int originalTileSize = 16; // 16x16 tile
     public static final int scale = 3;
 
@@ -26,7 +23,7 @@ public final class Constants {
 
     // Private constructor to prevent instantiation
     private Constants() {
-        throw new AssertionError("Cannot instantiate tech.fallqvist.Controller.Constants class");
+        throw new AssertionError("Cannot instantiate Controller.Constants class");
     }
 
     public static void main(String[] args) {

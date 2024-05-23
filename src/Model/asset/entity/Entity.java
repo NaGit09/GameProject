@@ -9,7 +9,8 @@ import Model.asset.entity.player.Player;
 import Model.asset.object.equipment.Shield;
 import Model.asset.object.equipment.Weapon;
 import Model.asset.tile.interactive.InteractiveTile;
-import Controller.UtilityTool;
+import Model.util.CollisionChecker;
+import Model.util.UtilityTool;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -119,12 +120,13 @@ public abstract class Entity implements Asset {
     public void checkCollision() {
 
         collisionOn = false;
-        gameController.getCollisionChecker().checkTile(this);
-        gameController.getCollisionChecker().checkObject(this, false);
-        gameController.getCollisionChecker().checkEntity(this, gameController.getNpcs());
-        gameController.getCollisionChecker().checkEntity(this, gameController.getMonsters());
-        gameController.getCollisionChecker().checkEntity(this, gameController.getInteractiveTiles());
-        boolean contactPlayer = gameController.getCollisionChecker().checkPlayer(this);
+        CollisionChecker checker = gameController.getCollisionChecker();
+        checker.checkTile(this);
+        checker.checkObject(this, false);
+        checker.checkEntity(this, gameController.getNpcs());
+        checker.checkEntity(this, gameController.getMonsters());
+        checker.checkEntity(this, gameController.getInteractiveTiles());
+        boolean contactPlayer = checker.checkPlayer(this);
 
         if (this instanceof Monster && contactPlayer) {
             damagePlayer(getAttackPower());

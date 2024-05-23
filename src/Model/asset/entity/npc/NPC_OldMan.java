@@ -66,10 +66,10 @@ public class NPC_OldMan extends NPC {
     }
 
     public void setDialogue() {
-        getDialogues()[0] = "Hello, lad.";
-        getDialogues()[1] = "So you've come to this island to find \nthe treasure?";
-        getDialogues()[2] = "I used to be a great wizard, but now... \nI'm a bit too old for adventuring.";
-        getDialogues()[3] = "Well, good luck to you lad.";
+        getDialogues()[0] = "Chào Glad.";
+        getDialogues()[1] = "Chào mừng đến với đảo thiên đường  \n để hoàn thành trò chơi bạn cần hạ Boss game ?";
+        getDialogues()[2] = "Thu thập trang bị và tiêu diệt Boss game";
+        getDialogues()[3] = "Chúc bạn mai mắn ! ";
     }
 
     @Override

@@ -1,7 +1,7 @@
 package Model.asset.object.equipment;
 
 import Controller.GameController;
-import Controller.UtilityTool;
+import Model.util.UtilityTool;
 import Model.asset.object.Object;
 
 import javax.imageio.ImageIO;

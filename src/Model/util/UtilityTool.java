@@ -1,9 +1,7 @@
-package Controller;
-
-
+package Model.util;
 
 import Controller.GameController;
-
+import Model.asset.entity.player.Player;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
@@ -29,10 +27,12 @@ public class UtilityTool {
     }
 
     public static boolean isInsidePlayerView(int worldX, int worldY, GameController GameController) {
-        return worldX + GameController.getTileSize() > GameController.getPlayer().getWorldX() - GameController.getPlayer().getScreenX()
-                && worldX - GameController.getTileSize() < GameController.getPlayer().getWorldX() + GameController.getPlayer().getScreenX()
-                && worldY + GameController.getTileSize() > GameController.getPlayer().getWorldY() - GameController.getPlayer().getScreenY()
-                && worldY - GameController.getTileSize() < GameController.getPlayer().getWorldY() + GameController.getPlayer().getScreenY();
+        int tileSize = GameController.getTileSize();
+        Player player = GameController.getPlayer();
+        return worldX + tileSize > player.getWorldX() - player.getScreenX()
+                && worldX - tileSize < player.getWorldX() + player.getScreenX()
+                && worldY + tileSize > player.getWorldY() - player.getScreenY()
+                && worldY - tileSize < player.getWorldY() + player.getScreenY();
     }
 
     public static void changeAlpha(Graphics2D graphics2D, float alphaValue) {

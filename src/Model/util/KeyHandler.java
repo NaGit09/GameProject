@@ -4,6 +4,7 @@ import Controller.GameController;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.net.CacheRequest;
 
 public class KeyHandler implements KeyListener {
     private boolean upPressed, downPressed, leftPressed, rightPressed, enterPressed, spacePressed, projectileKeyPressed;
@@ -85,29 +86,6 @@ public class KeyHandler implements KeyListener {
         }
     }
 
-    private void characterScreenEnterPressed() {
-        if (gameController.getUi().getCommandNumber() == 0) {
-            System.out.println("Fighter selected!");
-
-        }
-
-        if (gameController.getUi().getCommandNumber() == 1) {
-            System.out.println("Rogue selected!");
-            gameController.setGameState(gameController.getPlayState());
-            gameController.playMusic(0);
-        }
-
-        if (gameController.getUi().getCommandNumber() == 2) {
-            System.out.println("Sorcerer selected!");
-            gameController.setGameState(gameController.getPlayState());
-            gameController.playMusic(0);
-        }
-
-        if (gameController.getUi().getCommandNumber() == 3) {
-            gameController.getUi().setTitleScreenState(0);
-        }
-    }
-
     private void checkPlayStateKeyPressed(int code) {
         checkMovementKeys(code);
         checkGameStateKeys(code);
@@ -135,16 +113,12 @@ public class KeyHandler implements KeyListener {
     }
 
     private void checkInteractionKeys(int code) {
-        if (code == KeyEvent.VK_ENTER) {
-            enterPressed = true;
-        }
 
-        if (code == KeyEvent.VK_SPACE) {
-            spacePressed = true;
-        }
+        switch (code) {
+            case KeyEvent.VK_ENTER -> enterPressed = true;
+            case KeyEvent.VK_F -> projectileKeyPressed = true;
+            case KeyEvent.VK_SPACE -> spacePressed = true;
 
-        if (code == KeyEvent.VK_F) {
-            projectileKeyPressed = true;
         }
     }
 
@@ -188,34 +162,36 @@ public class KeyHandler implements KeyListener {
     }
 
     private void playerInventoryMovement(int code) {
-        if (code == KeyEvent.VK_W) {
-            if (gameController.getUi().getPlayerSlotRow() != 0) {
-                gameController.playSoundEffect(9);
-                gameController.getUi().setPlayerSlotRow(gameController.getUi().getPlayerSlotRow() - 1);
+        switch (code) {
+            case KeyEvent.VK_W -> {
+                if (gameController.getUi().getPlayerSlotRow() != 0) {
+                    gameController.playSoundEffect(9);
+                    gameController.getUi().setPlayerSlotRow(gameController.getUi().getPlayerSlotRow() - 1);
+                }
+            }
+            case  KeyEvent.VK_A -> {
+                if (gameController.getUi().getPlayerSlotCol() != 0) {
+                    gameController.playSoundEffect(9);
+                    gameController.getUi().setPlayerSlotCol(gameController.getUi().getPlayerSlotCol() - 1);
+                }
+            }
+            case KeyEvent.VK_S ->  {
+                if (gameController.getUi().getPlayerSlotRow() != 3) {
+                    gameController.playSoundEffect(9);
+                    gameController.getUi().setPlayerSlotRow(gameController.getUi().getPlayerSlotRow() + 1);
+                }
+            }
+            case  KeyEvent.VK_D -> {
+                if (gameController.getUi().getPlayerSlotCol() != 4) {
+                    gameController.playSoundEffect(9);
+                    gameController.getUi().setPlayerSlotCol(gameController.getUi().getPlayerSlotCol() + 1);
+                }
             }
         }
 
-        if (code == KeyEvent.VK_A) {
-            if (gameController.getUi().getPlayerSlotCol() != 0) {
-                gameController.playSoundEffect(9);
-                gameController.getUi().setPlayerSlotCol(gameController.getUi().getPlayerSlotCol() - 1);
-            }
-        }
 
-        if (code == KeyEvent.VK_S) {
-            if (gameController.getUi().getPlayerSlotRow() != 3) {
-                gameController.playSoundEffect(9);
-                gameController.getUi().setPlayerSlotRow(gameController.getUi().getPlayerSlotRow() + 1);
-            }
-        }
-
-        if (code == KeyEvent.VK_D) {
-            if (gameController.getUi().getPlayerSlotCol() != 4) {
-                gameController.playSoundEffect(9);
-                gameController.getUi().setPlayerSlotCol(gameController.getUi().getPlayerSlotCol() + 1);
-            }
-        }
     }
+
 
     private void checkOptionStateKeyPressed(int code) {
         if (code == KeyEvent.VK_ESCAPE) {
@@ -303,100 +279,90 @@ public class KeyHandler implements KeyListener {
         }
     }
 
+
+
     private void checkTradeStateKeyPressed(int code) {
         if (code == KeyEvent.VK_ENTER) {
             enterPressed = true;
         }
+        UI   ui = gameController.getUi();
 
-        if (gameController.getUi().getSubState() == 0) {
+        if (ui.getSubState() == 0) {
             if (code == KeyEvent.VK_W) {
-                gameController.getUi().setCommandNumber(gameController.getUi().getCommandNumber() - 1);
-                if (gameController.getUi().getCommandNumber() < 0) {
-                    gameController.getUi().setCommandNumber(2);
+                ui.setCommandNumber(ui.getCommandNumber() - 1);
+                if (ui.getCommandNumber() < 0) {
+                    ui.setCommandNumber(2);
                 }
                 gameController.playSoundEffect(9);
             }
 
             if (code == KeyEvent.VK_S) {
-                gameController.getUi().setCommandNumber(gameController.getUi().getCommandNumber() + 1);
-                if (gameController.getUi().getCommandNumber() > 2) {
-                    gameController.getUi().setCommandNumber(0);
+                ui.setCommandNumber(ui.getCommandNumber() + 1);
+                if (ui.getCommandNumber() > 2) {
+                    ui.setCommandNumber(0);
                 }
                 gameController.playSoundEffect(9);
             }
         }
 
-        if (gameController.getUi().getSubState() == 1) {
+        if (ui.getSubState() == 1) {
             npcInventoryMovement(code);
             if (code == KeyEvent.VK_ESCAPE) {
-                gameController.getUi().setSubState(0);
+                ui.setSubState(0);
             }
         }
 
-        if (gameController.getUi().getSubState() == 2) {
+        if (ui.getSubState() == 2) {
             playerInventoryMovement(code);
             if (code == KeyEvent.VK_ESCAPE) {
-                gameController.getUi().setSubState(0);
+                ui.setSubState(0);
             }
         }
     }
 
     private void npcInventoryMovement(int code) {
-        if (code == KeyEvent.VK_W) {
-            if (gameController.getUi().getNpcSlotRow() != 0) {
-                gameController.playSoundEffect(9);
-                gameController.getUi().setNpcSlotRow(gameController.getUi().getNpcSlotRow() - 1);
+        UI   ui = gameController.getUi();
+        switch (code) {
+            case KeyEvent.VK_W -> {
+                if (ui.getNpcSlotRow() != 0) {
+                    gameController.playSoundEffect(9);
+                    ui.setNpcSlotRow(ui.getNpcSlotRow() - 1);
+                }
+            }
+            case KeyEvent.VK_A -> {
+                if (ui.getNpcSlotCol() != 0) {
+                    gameController.playSoundEffect(9);
+                    ui.setNpcSlotCol(ui.getNpcSlotCol() - 1);
+                }
+            }
+            case KeyEvent.VK_S -> {
+                if (ui.getNpcSlotRow() != 3) {
+                    gameController.playSoundEffect(9);
+                    ui.setNpcSlotRow(ui.getNpcSlotRow() + 1);
+                }
+            }
+            case KeyEvent.VK_D -> {
+                if (ui.getNpcSlotCol() != 4) {
+                    gameController.playSoundEffect(9);
+                    ui.setNpcSlotCol(ui.getNpcSlotCol() + 1);
+                }
             }
         }
 
-        if (code == KeyEvent.VK_A) {
-            if (gameController.getUi().getNpcSlotCol() != 0) {
-                gameController.playSoundEffect(9);
-                gameController.getUi().setNpcSlotCol(gameController.getUi().getNpcSlotCol() - 1);
-            }
-        }
-
-        if (code == KeyEvent.VK_S) {
-            if (gameController.getUi().getNpcSlotRow() != 3) {
-                gameController.playSoundEffect(9);
-                gameController.getUi().setNpcSlotRow(gameController.getUi().getNpcSlotRow() + 1);
-            }
-        }
-
-        if (code == KeyEvent.VK_D) {
-            if (gameController.getUi().getNpcSlotCol() != 4) {
-                gameController.playSoundEffect(9);
-                gameController.getUi().setNpcSlotCol(gameController.getUi().getNpcSlotCol() + 1);
-            }
-        }
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
         int code = e.getKeyCode();
 
-        if (code == KeyEvent.VK_W) {
-            upPressed = false;
-        }
+        switch (code) {
+            case  KeyEvent.VK_W -> upPressed=false;
+            case KeyEvent.VK_S -> downPressed=false;
+            case KeyEvent.VK_A -> leftPressed=false;
+            case KeyEvent.VK_D -> rightPressed=false;
+            case KeyEvent.VK_SPACE -> spacePressed=false;
+            case KeyEvent.VK_F -> projectileKeyPressed=false;
 
-        if (code == KeyEvent.VK_S) {
-            downPressed = false;
-        }
-
-        if (code == KeyEvent.VK_A) {
-            leftPressed = false;
-        }
-
-        if (code == KeyEvent.VK_D) {
-            rightPressed = false;
-        }
-
-        if (code == KeyEvent.VK_SPACE) {
-            spacePressed = false;
-        }
-
-        if (code == KeyEvent.VK_F) {
-            projectileKeyPressed = false;
         }
     }
 
@@ -405,7 +371,7 @@ public class KeyHandler implements KeyListener {
         // Not used
     }
 
-
+// CÁC GETTER SETTER METOD
     public boolean isUpPressed() {
         return upPressed;
     }
