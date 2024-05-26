@@ -1,4 +1,4 @@
-package Model.util;
+package View;
 
 import Controller.GameController;
 import Model.asset.Asset;
@@ -9,6 +9,7 @@ import Model.asset.object.usable.pickuponly.OBJ_Coin_Bronze;
 import Model.asset.object.usable.pickuponly.OBJ_Heart;
 import Model.asset.object.usable.pickuponly.OBJ_ManaCrystal;
 import Model.event.EventHandler;
+import Model.util.UtilityTool;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;

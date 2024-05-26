@@ -10,7 +10,7 @@ import Model.asset.tile.TileManager;
 import Model.asset.tile.interactive.InteractiveTile;
 import Model.event.EventHandler;
 import Model.sound.SoundManager;
-import Model.util.UI;
+import View.UI;
 import View.GamePanel;
 import Model.util.CollisionChecker;
 import Model.util.KeyHandler;

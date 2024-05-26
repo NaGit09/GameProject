@@ -1,4 +1,4 @@
-package Model.asset.object.ability;
+package Model.asset.entity.ability;
 
 import Controller.GameController;
 import Model.asset.entity.Entity;

@@ -4,7 +4,7 @@ import Controller.GameController;
 import Model.asset.Asset;
 import Model.asset.entity.Entity;
 import Model.asset.entity.monster.BOSS_Ramurai;
-import Model.asset.object.ability.OBJ_Fireball;
+import Model.asset.entity.ability.OBJ_Fireball;
 import Model.asset.object.equipment.*;
 import Model.asset.object.interactive.OBJ_Chest;
 import Model.asset.object.usable.inventory.OBJ_Key;

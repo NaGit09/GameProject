@@ -1,10 +1,10 @@
 package Model.util;
 
 import Controller.GameController;
+import View.UI;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.net.CacheRequest;
 
 public class KeyHandler implements KeyListener {
     private boolean upPressed, downPressed, leftPressed, rightPressed, enterPressed, spacePressed, projectileKeyPressed;
@@ -285,7 +285,7 @@ public class KeyHandler implements KeyListener {
         if (code == KeyEvent.VK_ENTER) {
             enterPressed = true;
         }
-        UI   ui = gameController.getUi();
+        UI ui = gameController.getUi();
 
         if (ui.getSubState() == 0) {
             if (code == KeyEvent.VK_W) {

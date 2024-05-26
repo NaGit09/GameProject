@@ -1,7 +1,7 @@
 package Model.asset.entity.monster;
 
 import Controller.GameController;
-import Model.asset.object.ability.OBJ_Fireball;
+import Model.asset.entity.ability.OBJ_Fireball;
 import Model.asset.object.usable.inventory.OBJ_Key;
 
 

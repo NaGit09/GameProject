@@ -1,9 +1,7 @@
 package Model.asset.entity.monster;
 
 import Controller.GameController;
-import Model.asset.object.ability.OBJ_Fireball;
-import Model.asset.object.ability.OBJ_Rock;
-import Model.asset.object.ability.OBJ_SlimeBall;
+import Model.asset.entity.ability.OBJ_SlimeBall;
 import Model.asset.object.usable.pickuponly.OBJ_Coin_Bronze;
 import Model.asset.object.usable.pickuponly.OBJ_Heart;
 import Model.asset.object.usable.pickuponly.OBJ_ManaCrystal;
