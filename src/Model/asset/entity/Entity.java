@@ -9,8 +9,8 @@ import Model.asset.entity.player.Player;
 import Model.asset.object.equipment.Shield;
 import Model.asset.object.equipment.Weapon;
 import Model.asset.tile.interactive.InteractiveTile;
-import Model.util.CollisionChecker;
-import Model.util.UtilityTool;
+import Controller.util.CollisionChecker;
+import Controller.util.UtilityTool;
 
 import javax.imageio.ImageIO;
 import java.awt.*;

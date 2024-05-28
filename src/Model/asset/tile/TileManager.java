@@ -1,7 +1,7 @@
 package Model.asset.tile;
 
 import Controller.GameController;
-import Model.util.UtilityTool;
+import Controller.util.UtilityTool;
 
 import javax.imageio.ImageIO;
 import java.awt.*;

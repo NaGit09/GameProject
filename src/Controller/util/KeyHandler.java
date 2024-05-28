@@ -1,4 +1,4 @@
-package Model.util;
+package Controller.util;
 
 import Controller.GameController;
 import View.UI;

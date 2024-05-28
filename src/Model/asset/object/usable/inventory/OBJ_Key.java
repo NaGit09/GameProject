@@ -2,7 +2,7 @@ package Model.asset.object.usable.inventory;
 
 import Controller.GameController;
 import Model.asset.object.Object;
-import Model.util.UtilityTool;
+import Controller.util.UtilityTool;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;

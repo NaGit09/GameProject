@@ -12,7 +12,7 @@ import Model.asset.object.usable.inventory.OBJ_Potion_Blue;
 import Model.asset.object.usable.inventory.OBJ_Potion_Red;
 import Model.asset.object.usable.pickuponly.PickUpOnlyObject;
 import Model.asset.tile.interactive.InteractiveTile;
-import Model.util.KeyHandler;
+import Controller.util.KeyHandler;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;

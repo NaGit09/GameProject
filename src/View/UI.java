@@ -9,7 +9,7 @@ import Model.asset.object.usable.pickuponly.OBJ_Coin_Bronze;
 import Model.asset.object.usable.pickuponly.OBJ_Heart;
 import Model.asset.object.usable.pickuponly.OBJ_ManaCrystal;
 import Model.event.EventHandler;
-import Model.util.UtilityTool;
+import Controller.util.UtilityTool;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;

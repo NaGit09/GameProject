@@ -12,8 +12,8 @@ import Model.event.EventHandler;
 import Model.sound.SoundManager;
 import View.UI;
 import View.GamePanel;
-import Model.util.CollisionChecker;
-import Model.util.KeyHandler;
+import Controller.util.CollisionChecker;
+import Controller.util.KeyHandler;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
