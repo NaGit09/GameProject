@@ -32,7 +32,7 @@ public class NPC_Merchant extends NPC {
     }
 
     public void setDialogue() {
-        getDialogues()[0] = "He he, ở đây tôi bán các trang bị \n bạn có muốn mua không ?";
+        getDialogues()[0] = "He he, do you buy equidment ?? \n ";
     }
 
     public void setItems() {

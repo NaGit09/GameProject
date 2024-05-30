@@ -7,6 +7,7 @@ import Model.asset.entity.npc.NPC_Merchant;
 import Model.asset.entity.npc.NPC_OldMan;
 import Model.asset.entity.npc.NPC_Wizard;
 import Model.asset.object.equipment.OBJ_Axe;
+import Model.asset.object.equipment.OBJ_Boots;
 import Model.asset.object.interactive.OBJ_Chest;
 import Model.asset.tile.interactive.IT_DryTree;
 import Model.asset.tile.interactive.IT_Teleport;
@@ -27,7 +28,7 @@ public class AssetManager {
         // MAP 0
         map = 0;
 
-        gameController.getObjects()[map][0] = new OBJ_Axe(gameController);
+        gameController.getObjects()[map][0] = new OBJ_Boots(gameController);
         gameController.getObjects()[map][0].setWorldX(tileSize * 33);
         gameController.getObjects()[map][0].setWorldY(tileSize * 7);
         gameController.getObjects()[map][0].setIndex(0);

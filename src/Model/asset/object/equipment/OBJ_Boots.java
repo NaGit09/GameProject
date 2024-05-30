@@ -18,7 +18,7 @@ public class OBJ_Boots extends Object {
         setDescription("[" + getName() + "]\nA pair of old boots");
 
         try {
-            BufferedImage image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/images/objects/boots.png")));
+            BufferedImage image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/resources/images/objects/boots.png")));
             setImage1(UtilityTool.scaleImage(image, gameController.getTileSize(), gameController.getTileSize()));
 
         } catch (IOException e) {

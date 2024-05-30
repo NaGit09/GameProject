@@ -22,6 +22,8 @@ import java.util.Comparator;
 import java.util.List;
 
 public class GameController implements Runnable {
+    public controllerDraw draw = new controllerDraw(this) ;
+    public controllerUpdate update = new controllerUpdate(this);
 
     // Full screen mode
     public int fullScreenWidth = Constants.screenWidth;
@@ -140,8 +142,8 @@ public class GameController implements Runnable {
 
             if (delta >= 1) {
                 update();
-                drawToTempScreen();
-                drawToScreen();
+                draw.drawToTempScreen();
+                draw.drawToScreen();
                 delta--;
             }
         }
@@ -150,77 +152,14 @@ public class GameController implements Runnable {
     public void update() {
         if (gameState == typeGame.playState) {
             player.update();
-            updateNPCs();
-            updateMonsters();
-            updateProjectiles();
-            updateParticles();
-            updateInteractiveTiles();
+            update.updateNPCs();
+            update.updateMonsters();
+            update.updateProjectiles();
+            update.updateParticles();
+            update.updateInteractiveTiles();
         }
 
 
-    }
-
-    public void updateNPCs() {
-        for (int i = 0; i < npcs[1].length; i++) {
-            if (npcs[currentMap][i] != null) {
-                npcs[currentMap][i].update();
-            }
-        }
-    }
-
-    public void updateMonsters() {
-        for (int i = 0; i < monsters[1].length; i++) {
-            if (monsters[currentMap][i] != null) {
-                if (monsters[currentMap][i].isAlive() && !monsters[currentMap][i].isDying()) {
-                    monsters[currentMap][i].update();
-                }
-
-                if (!monsters[currentMap][i].isAlive()) {
-                    monsters[currentMap][i].checkDrop();
-                    removeMonster(monsters[currentMap][i].getIndex());
-                }
-            }
-        }
-    }
-
-    public void removeMonster(int index) {
-        monsters[currentMap][index] = null;
-    }
-
-    public void updateProjectiles() {
-        for (int i = 0; i < projectiles.size(); i++) {
-            if (projectiles.get(i) != null) {
-                if (projectiles.get(i).isAlive()) {
-                    projectiles.get(i).update();
-                }
-
-                if (!projectiles.get(i).isAlive()) {
-                    projectiles.remove(projectiles.get(i));
-                }
-            }
-        }
-    }
-
-    public void updateParticles() {
-        for (int i = 0; i < particles.size(); i++) {
-            if (particles.get(i) != null) {
-                if (particles.get(i).isAlive()) {
-                    particles.get(i).update();
-                }
-
-                if (!particles.get(i).isAlive()) {
-                    particles.remove(particles.get(i));
-                }
-            }
-        }
-    }
-
-    public void updateInteractiveTiles() {
-        for (int i = 0; i < interactiveTiles[1].length; i++) {
-            if (interactiveTiles[currentMap][i] != null) {
-                interactiveTiles[currentMap][i].update();
-            }
-        }
     }
 
 
@@ -260,80 +199,6 @@ public class GameController implements Runnable {
 
     public void sortAssets() {
         assets.sort(Comparator.comparingInt(Asset::getWorldY));
-    }
-    // DRAW METOD
-    public void drawToTempScreen() {
-
-        // DEBUG
-        long drawStart = 0;
-        if (keyHandler.isShowDebugText()) {
-            drawStart = System.nanoTime();
-        }
-
-        if (gameState == typeGame.titleState) {
-            ui.draw(graphics2D);
-        } else {
-
-            // TILES
-            tileManager.draw(graphics2D);
-
-            drawInteractiveTiles(graphics2D);
-
-            // ASSETS
-            addAssets();
-            sortAssets();
-            drawAssets(graphics2D);
-            assets.clear();
-
-            // UI
-            ui.draw(graphics2D);
-        }
-
-        // DEBUG
-        if (keyHandler.isShowDebugText()) {
-            drawDebugInfo(graphics2D, drawStart);
-        }
-    }
-
-    public void drawInteractiveTiles(Graphics2D graphics2D) {
-        for (int i = 0; i < interactiveTiles[1].length; i++) {
-            if (interactiveTiles[currentMap][i] != null) {
-                interactiveTiles[currentMap][i].draw(graphics2D);
-            }
-        }
-    }
-
-    public void drawAssets(Graphics2D graphics2D) {
-        for (Asset asset : assets) {
-            asset.draw(graphics2D);
-        }
-    }
-
-    public void drawDebugInfo(Graphics2D graphics2D, long drawStart) {
-        long drawEnd = System.nanoTime();
-        long passedTime = drawEnd - drawStart;
-        int x = 10;
-        int y = 400;
-        int lineHeight = 20;
-
-        graphics2D.setFont(new Font("Arial", Font.PLAIN, 20));
-        graphics2D.setColor(Color.WHITE);
-
-        graphics2D.drawString("WorldX: " + player.getWorldX(), x, y);
-        y += lineHeight;
-        graphics2D.drawString("WorldY: " + player.getWorldY(), x, y);
-        y += lineHeight;
-        graphics2D.drawString("Col: " + (player.getWorldX() + player.getCollisionArea().x) / Constants.tileSize, x, y);
-        y += lineHeight;
-        graphics2D.drawString("Row: " + (player.getWorldY() + player.getCollisionArea().y) / Constants.tileSize, x, y);
-        y += lineHeight;
-        graphics2D.drawString("Draw Time: " + passedTime, x, y);
-    }
-
-    public void drawToScreen() {
-        Graphics graphics = gp.getGraphics();
-        graphics.drawImage(tempScreen, 0, 0, fullScreenWidth, fullScreenHeight, null);
-        graphics.dispose();
     }
 
     public void playMusic(int index) {

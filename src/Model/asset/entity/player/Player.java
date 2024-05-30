@@ -348,7 +348,9 @@ public class Player extends Entity {
                 if (getgameController().getObjects()[getgameController().getCurrentMap()][index] instanceof OBJ_Key) {
                     key++;
                 }
-
+                if (getgameController().getObjects()[getgameController().getCurrentMap()][index] instanceof OBJ_Boots) {
+                    speed+= 2;
+                }
                 getgameController().getObjects()[getgameController().getCurrentMap()][index].use();
             }
 
