@@ -73,13 +73,13 @@ public class PathFinder {
         int col = 0;
         int row = 0;
         while (col < gameController.getMaxWorldColumns() && row < gameController.getMaxWorldRows()) {
-            int tileNum = gameController.tileManager.mapTileNumbers[gameController.currentMap][col][row];
+            int tileNum = gameController.tileManager.mapTileNumbers[gameController.update.currentMap][col][row];
 
             if (gameController.tileManager.tiles[tileNum].collision) {
                 node[col][row].solid = true;
             }
-            for (int i = 0; i < gameController.interactiveTiles[1].length; i++) {
-                InteractiveTile IT = gameController.interactiveTiles[gameController.currentMap][i];
+            for (int i = 0; i < gameController.update.interactiveTiles[1].length; i++) {
+                InteractiveTile IT = gameController.update.interactiveTiles[gameController.update.currentMap][i];
                 if (IT != null && IT.isDestructible()) {
                     int iCol = IT.getWorldX() / gameController.getTileSize();
                     int iRow = IT.getWorldY() / gameController.getTileSize();

@@ -1,6 +1,7 @@
 package Controller;
 
 import Model.asset.Asset;
+import Model.asset.entity.player.Player;
 
 import java.awt.*;
 
@@ -14,45 +15,47 @@ public class controllerDraw {
 
         // DEBUG
         long drawStart = 0;
+        
+        Graphics2D graphics2D = controller.graphics2D;
         if (controller.keyHandler.isShowDebugText()) {
             drawStart = System.nanoTime();
         }
 
         if (controller.gameState == GameController.typeGame.titleState) {
-            controller.ui.draw(controller.graphics2D);
+            controller.ui.draw(graphics2D);
         } else {
 
             // TILES
-            controller.tileManager.draw(controller.graphics2D);
+            controller.tileManager.draw(graphics2D);
 
-            drawInteractiveTiles(controller.graphics2D);
+            drawInteractiveTiles(graphics2D);
 
             // ASSETS
-            controller.addAssets();
-            controller.sortAssets();
-            drawAssets(controller.graphics2D);
-            controller.assets.clear();
+            controller.update.addAssets();
+            controller.update.sortAssets();
+            drawAssets(graphics2D);
+            controller.update.assets.clear();
 
             // UI
-            controller.ui.draw(controller.graphics2D);
+            controller.ui.draw(graphics2D);
         }
 
         // DEBUG
         if (controller.keyHandler.isShowDebugText()) {
-            drawDebugInfo(controller.graphics2D, drawStart);
+            drawDebugInfo(graphics2D, drawStart);
         }
     }
 
     public void drawInteractiveTiles(Graphics2D graphics2D) {
-        for (int i = 0; i < controller.interactiveTiles[1].length; i++) {
-            if (controller.interactiveTiles[controller.currentMap][i] != null) {
-                controller.interactiveTiles[controller.currentMap][i].draw(graphics2D);
+        for (int i = 0; i < controller.update.interactiveTiles[1].length; i++) {
+            if (controller.update.interactiveTiles[controller.update.currentMap][i] != null) {
+                controller.update.interactiveTiles[controller.update.currentMap][i].draw(graphics2D);
             }
         }
     }
 
     public void drawAssets(Graphics2D graphics2D) {
-        for (Asset asset : controller.assets) {
+        for (Asset asset : controller.update.assets) {
             asset.draw(graphics2D);
         }
     }
@@ -63,17 +66,19 @@ public class controllerDraw {
         int x = 10;
         int y = 400;
         int lineHeight = 20;
+        
+        Player player =  controller.getPlayer();
 
         graphics2D.setFont(new Font("Arial", Font.PLAIN, 20));
         graphics2D.setColor(Color.WHITE);
 
-        graphics2D.drawString("WorldX: " + controller.player.getWorldX(), x, y);
+        graphics2D.drawString("WorldX: " + player.getWorldX(), x, y);
         y += lineHeight;
-        graphics2D.drawString("WorldY: " +  controller.player.getWorldY(), x, y);
+        graphics2D.drawString("WorldY: " +  player.getWorldY(), x, y);
         y += lineHeight;
-        graphics2D.drawString("Col: " + ( controller.player.getWorldX() +  controller.player.getCollisionArea().x) / Constants.tileSize, x, y);
+        graphics2D.drawString("Col: " + ( player.getWorldX() +  player.getCollisionArea().x) / Constants.tileSize, x, y);
         y += lineHeight;
-        graphics2D.drawString("Row: " + ( controller.player.getWorldY() +  controller.player.getCollisionArea().y) / Constants.tileSize, x, y);
+        graphics2D.drawString("Row: " + ( player.getWorldY() +  player.getCollisionArea().y) / Constants.tileSize, x, y);
         y += lineHeight;
         graphics2D.drawString("Draw Time: " + passedTime, x, y);
     }

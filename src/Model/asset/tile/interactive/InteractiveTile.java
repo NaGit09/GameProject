@@ -4,7 +4,7 @@ import Controller.GameController;
 import Model.asset.entity.Entity;
 import Model.asset.object.equipment.Weapon;
 
-public class InteractiveTile extends Entity {
+public abstract class InteractiveTile extends Entity {
 
     private boolean destructible;
 

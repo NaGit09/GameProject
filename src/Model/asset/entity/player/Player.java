@@ -3,7 +3,7 @@ package Model.asset.entity.player;
 import Controller.GameController;
 import Model.asset.Asset;
 import Model.asset.entity.Entity;
-import Model.asset.entity.monster.BOSS_Ramurai;
+import Model.asset.entity.monster.BOSS_Samurai;
 import Model.asset.entity.ability.OBJ_Fireball;
 import Model.asset.object.equipment.*;
 import Model.asset.object.interactive.OBJ_Chest;
@@ -18,21 +18,17 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class Player extends Entity {
-
     private final KeyHandler keyHandler;
     private final int screenX;
     private final int screenY;
     private int resetTimer;
     public int key = 0;
 
-
     public Player(GameController gamePanel, KeyHandler keyHandler) {
         super(gamePanel);
         this.keyHandler = keyHandler;
-
         this.screenX = gamePanel.getScreenWidth() / 2 - (gamePanel.getTileSize() / 2);
         this.screenY = gamePanel.getScreenHeight() / 2 - (gamePanel.getTileSize() / 2);
-
         setItems();
         setDefaultValues();
         setCollision();
@@ -41,7 +37,6 @@ public class Player extends Entity {
 
     public void setDefaultValues() {
         setDefaultPosition();
-
         setSpeed(4);
         setMaxLife(6);
         setCurrentLife(getMaxLife());
@@ -66,9 +61,8 @@ public class Player extends Entity {
         setCurrentShield(new OBJ_Shield_Wood(getgameController()));
         setProjectile(new OBJ_Fireball(getgameController()));
         getInventory().add(getCurrentWeapon());
-        getInventory().add(getCurrentShield());
-        getInventory().add(new OBJ_Key(getgameController()));
         getInventory().add(new OBJ_Axe(getgameController()));
+        getInventory().add(getCurrentShield());
     }
 
     public void setDefaultPosition() {
@@ -214,11 +208,11 @@ public class Player extends Entity {
             getCollisionArea().height = getAttackArea().height;
 
             // Check monster collision with updated collisionArea
-            int monsterIndex = getgameController().getCollisionChecker().checkEntity(this, getgameController().getMonsters());
+            int monsterIndex = getgameController().getCollisionChecker().checkEntity(this, getgameController().update.getMonsters());
             damageMonster(monsterIndex, getAttackPower());
 
             // Check interactiveTile collision
-            int interactiveTileIndex = getgameController().getCollisionChecker().checkEntity(this, getgameController().getInteractiveTiles());
+            int interactiveTileIndex = getgameController().getCollisionChecker().checkEntity(this, getgameController().update.getInteractiveTiles());
             damageInteractiveTile(interactiveTileIndex);
 
             // Reset collisionArea to player
@@ -237,7 +231,7 @@ public class Player extends Entity {
 
     public void damageMonster(int index, int attackPower) {
         if (index != 999) {
-            Asset monster = getgameController().getMonsters()[getgameController().getCurrentMap()][index];
+            Asset monster = getgameController().update.getMonsters()[getgameController().update.getCurrentMap()][index];
             if (!monster.isInvincible()) {
 
                 getgameController().playSoundEffect(5);
@@ -247,21 +241,21 @@ public class Player extends Entity {
                     damage = 0;
                 }
 
-               monster.setCurrentLife(monster.getCurrentLife() - damage);
+                monster.setCurrentLife(monster.getCurrentLife() - damage);
                 getgameController().getUi().addMessage(damage + " damage!");
 
-               monster.setInvincible(true);
-               monster.damageReaction();
+                monster.setInvincible(true);
+                monster.damageReaction();
 
                 if (monster.getCurrentLife() <= 0) {
-                   monster.setDying(true);
-                    getgameController().getUi().addMessage("Killed the " +monster.getName() + "!");
-                    setExp(getExp() +monster.getExp());
-                    getgameController().getUi().addMessage("Exp + " +monster.getExp());
+                    monster.setDying(true);
+                    getgameController().getUi().addMessage("Killed the " + monster.getName() + "!");
+                    setExp(getExp() + monster.getExp());
+                    getgameController().getUi().addMessage("Exp + " + monster.getExp());
 
                     checkLevelUp();
                     // GAME CLEAR SAU KHI ĐÁNH BẠI BOSS GAME
-                    if (monster instanceof BOSS_Ramurai) {
+                    if (monster instanceof BOSS_Samurai) {
                         gameController.setGameState(gameController.getGameClear());
                     }
 
@@ -273,24 +267,23 @@ public class Player extends Entity {
     private void damageInteractiveTile(int index) {
 
         if (index != 999) {
-            InteractiveTile IT = getgameController().getInteractiveTiles()[getgameController().getCurrentMap()][index];
-            if (IT.isDestructible()  && IT.isCorrectWeapon(getCurrentWeapon()) && !IT.isInvincible()){
+            InteractiveTile IT = getgameController().update.getInteractiveTiles()[getgameController().update.getCurrentMap()][index];
+            if (IT.isDestructible() && IT.isCorrectWeapon(getCurrentWeapon()) && !IT.isInvincible()) {
 
-            IT.playSoundEffect();
-            IT.setCurrentLife(IT.getCurrentLife() - 1);
-            IT.setInvincible(true);
+                IT.playSoundEffect();
+                IT.setCurrentLife(IT.getCurrentLife() - 1);
+                IT.setInvincible(true);
 
-            generateParticle(getgameController().getInteractiveTiles()[getgameController().getCurrentMap()][index], getgameController().getInteractiveTiles()[getgameController().getCurrentMap()][index]);
+                generateParticle(getgameController().update.getInteractiveTiles()[getgameController().update.getCurrentMap()][index], getgameController().update.getInteractiveTiles()[getgameController().update.getCurrentMap()][index]);
 
-            if (getgameController().getInteractiveTiles()[getgameController().getCurrentMap()][index].getCurrentLife() == 0) {
-                getgameController().getInteractiveTiles()[getgameController().getCurrentMap()][index] = getgameController().getInteractiveTiles()[getgameController().getCurrentMap()][index].getDestroyedForm();
-            }}
+                if (getgameController().update.getInteractiveTiles()[getgameController().update.getCurrentMap()][index].getCurrentLife() == 0) {
+                    getgameController().update.getInteractiveTiles()[getgameController().update.getCurrentMap()][index] = getgameController().update.getInteractiveTiles()[getgameController().update.getCurrentMap()][index].getDestroyedForm();
+                }
+            }
         }
 
 
-
-        }
-
+    }
 
     public void checkLevelUp() {
         if (getExp() >= getNextLevelExp()) {
@@ -332,7 +325,7 @@ public class Player extends Entity {
     }
 
     private void checkInteractiveTileCollision() {
-        getgameController().getCollisionChecker().checkEntity(this, getgameController().getInteractiveTiles());
+        getgameController().getCollisionChecker().checkEntity(this, getgameController().update.getInteractiveTiles());
     }
 
     private void checkObjectCollision() {
@@ -344,23 +337,23 @@ public class Player extends Entity {
         if (index != 999) {
 
             // PICK-UP ONLY ITEMS
-            if (getgameController().getObjects()[getgameController().getCurrentMap()][index] instanceof PickUpOnlyObject) {
-                if (getgameController().getObjects()[getgameController().getCurrentMap()][index] instanceof OBJ_Key) {
+            if (getgameController().update.getObjects()[getgameController().update.getCurrentMap()][index] instanceof PickUpOnlyObject) {
+                if (getgameController().update.getObjects()[getgameController().update.getCurrentMap()][index] instanceof OBJ_Key) {
                     key++;
                 }
-                if (getgameController().getObjects()[getgameController().getCurrentMap()][index] instanceof OBJ_Boots) {
-                    speed+= 2;
+                if (getgameController().update.getObjects()[getgameController().update.getCurrentMap()][index] instanceof OBJ_Boots) {
+                    speed += 2;
                 }
-                getgameController().getObjects()[getgameController().getCurrentMap()][index].use();
+                getgameController().update.getObjects()[getgameController().update.getCurrentMap()][index].use();
             }
 
             // INVENTORY ITEMS
             else {
                 String text;
                 if (getInventory().size() != getMaxInventorySize()) {
-                    getInventory().add(getgameController().getObjects()[getgameController().getCurrentMap()][index]);
+                    getInventory().add(getgameController().update.getObjects()[getgameController().update.getCurrentMap()][index]);
                     getgameController().playSoundEffect(1);
-                    text = "Got a " + getgameController().getObjects()[getgameController().getCurrentMap()][index].getName() + "!";
+                    text = "Got a " + getgameController().update.getObjects()[getgameController().update.getCurrentMap()][index].getName() + "!";
                 } else {
                     text = "You cannot carry anymore!";
                 }
@@ -368,36 +361,41 @@ public class Player extends Entity {
                 getgameController().getUi().addMessage(text);
             }
 
-            getgameController().getObjects()[getgameController().getCurrentMap()][index] = null;
+            getgameController().update.getObjects()[getgameController().update.getCurrentMap()][index] = null;
         }
     }
 
     private void checkNPCCollision() {
-        int npcIndex = getgameController().getCollisionChecker().checkEntity(this, getgameController().getNpcs());
+        int npcIndex = getgameController()
+                .getCollisionChecker().checkEntity(this, getgameController().update.getNpcs());
         interactWithNPC(npcIndex);
     }
 
     private void interactWithNPC(int index) {
         if (index != 999) {
-            if (getgameController().getKeyHandler().isEnterPressed()) {
-                getgameController().setGameState(getgameController().getDialogueState());
-                getgameController().getNpcs()[getgameController().getCurrentMap()][index].speak();
+            if (getgameController()
+                    .getKeyHandler().isEnterPressed()) {
+                getgameController()
+                        .setGameState(getgameController()
+                                .getDialogueState());
+                getgameController().update.getNpcs()[getgameController().update.getCurrentMap()][index].speak();
             }
         }
     }
 
     private void checkMonsterCollision() {
-        int monsterIndex = getgameController().getCollisionChecker().checkEntity(this, getgameController().getMonsters());
+        int monsterIndex = getgameController()
+                .getCollisionChecker().checkEntity(this, getgameController().update.getMonsters());
         interactWithMonster(monsterIndex);
     }
 
-
     private void interactWithMonster(int index) {
         if (index != 999) {
-            if (!isInvincible() && !getgameController().getMonsters()[getgameController().getCurrentMap()][index].isDying()) {
-                getgameController().playSoundEffect(6);
+            if (!isInvincible() && !getgameController().update.getMonsters()[getgameController().update.getCurrentMap()][index].isDying()) {
+                getgameController()
+                        .playSoundEffect(6);
 
-                int damage = getgameController().getMonsters()[getgameController().getCurrentMap()][index].getAttackPower() - getDefensePower();
+                int damage = getgameController().update.getMonsters()[getgameController().update.getCurrentMap()][index].getAttackPower() - getDefensePower();
                 if (damage < 0) {
                     damage = 0;
                 }
@@ -409,7 +407,8 @@ public class Player extends Entity {
     }
 
     private void checkEvent() {
-        getgameController().getEventHandler().checkEvent();
+        getgameController()
+                .getEventHandler().checkEvent();
     }
 
     private void resetEnterPressedValue() {
@@ -425,7 +424,8 @@ public class Player extends Entity {
     }
 
     private void fireProjectileIfKeyPressed() {
-        if (getgameController().getKeyHandler().isProjectileKeyPressed()
+        if (getgameController()
+                .getKeyHandler().isProjectileKeyPressed()
                 && !getProjectile().isAlive()
                 && getProjectileAvailableCounter() == 30
                 && getProjectile().haveEnoughResource(this)) {
@@ -437,11 +437,12 @@ public class Player extends Entity {
             getProjectile().subtractResource(this);
 
             // Add it to the projectiles list
-            getgameController().getProjectiles().add(getProjectile());
+            getgameController().update.getProjectiles().add(getProjectile());
 
             setProjectileAvailableCounter(0);
 
-            getgameController().playSoundEffect(10);
+            getgameController()
+                    .playSoundEffect(10);
         }
 
         if (getProjectileAvailableCounter() < 30) {
@@ -453,31 +454,28 @@ public class Player extends Entity {
         if (getCurrentLife() > getMaxLife()) {
             setCurrentLife(getMaxLife());
         }
-
         if (getCurrentLife() < 0) {
             setCurrentLife(0);
         }
-
         if (getCurrentMana() > getMaxMana()) {
             setCurrentMana(getMaxMana());
         }
-
         if (getCurrentMana() < 0) {
             setCurrentMana(0);
         }
     }
-
     private void checkIfAlive() {
         if (getCurrentLife() <= 0) {
             getgameController().playSoundEffect(11);
             getgameController().setGameState(getgameController().getGameOverState());
-
             setInvincible(false);
         }
     }
-
     public void selectItem() {
-        int itemIndex = getgameController().getUi().getItemIndexFromSlot(getgameController().getUi().getPlayerSlotCol(), getgameController().getUi().getPlayerSlotRow());
+        int itemIndex = getgameController()
+                .getUi().getItemIndexFromSlot(getgameController()
+                        .getUi().getPlayerSlotCol(), getgameController()
+                        .getUi().getPlayerSlotRow());
 
         if (itemIndex < getInventory().size()) {
             Asset selectedItem = getInventory().get(itemIndex);
@@ -502,13 +500,14 @@ public class Player extends Entity {
                 selectedItem.use();
                 getInventory().remove(itemIndex);
             }
+            if (selectedItem instanceof OBJ_Boots) {
+                selectedItem.use();
+                getInventory().remove(itemIndex);
+            }
             if (selectedItem instanceof OBJ_Chest) {
-
                 selectedItem.use();
                 getInventory().remove(itemIndex);
                 gameController.player.getInventory().removeIf(a -> a instanceof OBJ_Key);
-
-
             }
 
         }
@@ -516,10 +515,12 @@ public class Player extends Entity {
 
     @Override
     public void draw(Graphics2D graphics2D) {
-        int rightOffset = getgameController().getScreenWidth() - screenX;
+        int rightOffset = getgameController()
+                .getScreenWidth() - screenX;
         int x = checkIfAtEdgeOfXAxis(rightOffset);
 
-        int bottomOffset = getgameController().getScreenHeight() - screenY;
+        int bottomOffset = getgameController()
+                .getScreenHeight() - screenY;
         int y = checkIfAtEdgeOfYAxis(bottomOffset);
 
         if (isInvincible()) {
@@ -527,12 +528,11 @@ public class Player extends Entity {
         }
 
         if (isAttacking()) {
-            int tileSize = getgameController().getTileSize();
+            int tileSize = getgameController()
+                    .getTileSize();
             switch (getDirection()) {
-                case "up" ->
-                        graphics2D.drawImage(getDirectionalAnimationImage(), x, y - tileSize, null);
-                case "left" ->
-                        graphics2D.drawImage(getDirectionalAnimationImage(), x - tileSize, y, null);
+                case "up" -> graphics2D.drawImage(getDirectionalAnimationImage(), x, y - tileSize, null);
+                case "left" -> graphics2D.drawImage(getDirectionalAnimationImage(), x - tileSize, y, null);
                 default -> graphics2D.drawImage(getDirectionalAnimationImage(), x, y, null);
             }
         } else {
@@ -541,62 +541,57 @@ public class Player extends Entity {
 
         graphics2D.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1F));
     }
-
     private int checkIfAtEdgeOfXAxis(int rightOffset) {
         if (screenX > getWorldX()) {
             return getWorldX();
         }
 
-        if (rightOffset > getgameController().getWorldWidth() - getWorldX()) {
-            return getgameController().getScreenWidth() - (getgameController().getWorldWidth() - getWorldX());
+        if (rightOffset > getgameController()
+                .getWorldWidth() - getWorldX()) {
+            return getgameController()
+                    .getScreenWidth() - (getgameController()
+                    .getWorldWidth() - getWorldX());
         }
 
         return screenX;
     }
-
     private int checkIfAtEdgeOfYAxis(int bottomOffset) {
         if (screenY > getWorldY()) {
             return getWorldY();
         }
 
-        if (bottomOffset > getgameController().getWorldHeight() - getWorldY()) {
-            return getgameController().getScreenHeight() - (getgameController().getWorldHeight() - getWorldY());
+        if (bottomOffset > getgameController()
+                .getWorldHeight() - getWorldY()) {
+            return getgameController()
+                    .getScreenHeight() - (getgameController()
+                    .getWorldHeight() - getWorldY());
         }
 
         return screenY;
     }
-
-
     public int getScreenX() {
         return screenX;
     }
-
     public int getScreenY() {
         return screenY;
     }
-
     @Override
     public BufferedImage getImage1() {
         return getDown1();
     }
-
-
     // NOT USED
     @Override
     public void damageReaction() {
         // Not used yet
     }
-
     @Override
     public boolean isCollision() {
         return false;
     }
-
     @Override
     public String getDescription() {
         return null;
     }
-
     @Override
     public void use() {
         // Not used

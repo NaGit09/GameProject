@@ -81,7 +81,6 @@ public class TileManager {
         setup(43, "floor01", false);
         setup(44,"teleport",false);
 
-        setup(45,"tree_2",true);
 
 
 
@@ -136,7 +135,7 @@ public class TileManager {
 
         while (worldColumn < gameController.getMaxWorldColumns() && worldRow < gameController.getMaxWorldRows()) {
 
-            int tileNumber = mapTileNumbers[gameController.getCurrentMap()][worldColumn][worldRow];
+            int tileNumber = mapTileNumbers[gameController.update.getCurrentMap()][worldColumn][worldRow];
 
             int worldX = worldColumn * gameController.getTileSize();
             int worldY = worldRow * gameController.getTileSize();

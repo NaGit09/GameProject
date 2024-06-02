@@ -25,8 +25,8 @@ public class UI {
     private Graphics2D graphics2D;
     private final BufferedImage heart_full, heart_half, heart_blank, crystal_full, crystal_blank, coin;
     private Font maruMonica;
-    private List<String> messages = new ArrayList<>();
-    private List<Integer> messageCounter = new ArrayList<>();
+    private final List<String> messages = new ArrayList<>();
+    private final List<Integer> messageCounter = new ArrayList<>();
     private boolean gameFinished = false;
     private String currentDialogue;
     private int commandNumber;
@@ -57,6 +57,7 @@ public class UI {
         Object coin = new OBJ_Coin_Bronze(gameController);
         this.coin = coin.getImage1();
     }
+
 
     private void setupFonts() {
         try {
@@ -873,7 +874,7 @@ public class UI {
         if (counter == 50) {
             counter = 0;
             gameController.setGameState(gameController.getPlayState());
-            gameController.setCurrentMap(eventHandle.getTempMap());
+            gameController.update.setCurrentMap(eventHandle.getTempMap());
             player.setWorldX(tileSize * eventHandle.getTempCol());
             player.setWorldY(tileSize * eventHandle.getTempRow());
             eventHandle.setPreviousEventX(player.getWorldX());
@@ -1069,18 +1070,16 @@ public class UI {
         return currentDialogue;
     }
 
-    public UI setCurrentDialogue(String currentDialogue) {
+    public void setCurrentDialogue(String currentDialogue) {
         this.currentDialogue = currentDialogue;
-        return this;
     }
 
     public int getCommandNumber() {
         return commandNumber;
     }
 
-    public UI setCommandNumber(int commandNumber) {
+    public void setCommandNumber(int commandNumber) {
         this.commandNumber = commandNumber;
-        return this;
     }
 
     public int getTitleScreenState() {
@@ -1096,54 +1095,48 @@ public class UI {
         return playerSlotCol;
     }
 
-    public UI setPlayerSlotCol(int playerSlotCol) {
+    public void setPlayerSlotCol(int playerSlotCol) {
         this.playerSlotCol = playerSlotCol;
-        return this;
     }
 
     public int getPlayerSlotRow() {
         return playerSlotRow;
     }
 
-    public UI setPlayerSlotRow(int playerSlotRow) {
+    public void setPlayerSlotRow(int playerSlotRow) {
         this.playerSlotRow = playerSlotRow;
-        return this;
     }
 
     public int getSubState() {
         return subState;
     }
 
-    public UI setSubState(int subState) {
+    public void setSubState(int subState) {
         this.subState = subState;
-        return this;
     }
 
     public Entity getNpc() {
         return npc;
     }
 
-    public UI setNpc(Entity npc) {
+    public void setNpc(Entity npc) {
         this.npc = npc;
-        return this;
     }
 
     public int getNpcSlotCol() {
         return npcSlotCol;
     }
 
-    public UI setNpcSlotCol(int npcSlotCol) {
+    public void setNpcSlotCol(int npcSlotCol) {
         this.npcSlotCol = npcSlotCol;
-        return this;
     }
 
     public int getNpcSlotRow() {
         return npcSlotRow;
     }
 
-    public UI setNpcSlotRow(int npcSlotRow) {
+    public void setNpcSlotRow(int npcSlotRow) {
         this.npcSlotRow = npcSlotRow;
-        return this;
     }
 
 

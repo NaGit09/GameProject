@@ -1,5 +1,7 @@
 package Controller;
 
+import View.GamePanel;
+
 public final class Constants {
     public static final int originalTileSize = 16; // 16x16 tile
     public static final int scale = 3;

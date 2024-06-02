@@ -129,7 +129,7 @@ public class KeyHandler implements KeyListener {
         }
 
         if (code == KeyEvent.VK_R) {
-            switch (gameController.getCurrentMap()) {
+            switch (gameController.update.getCurrentMap()) {
                 case 0 -> gameController.getTileManager().loadMap("/resources/maps/worldV3.txt", 0);
                 case 1 -> gameController.getTileManager().loadMap("/resources/maps/interior01.txt", 1);
             }

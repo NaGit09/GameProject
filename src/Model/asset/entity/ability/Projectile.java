@@ -25,11 +25,11 @@ public abstract class Projectile extends Entity {
 
         if (user == getgameController().getPlayer()) {
 
-            int monsterIndex = getgameController().getCollisionChecker().checkEntity(this, getgameController().getMonsters());
+            int monsterIndex = getgameController().getCollisionChecker().checkEntity(this, getgameController().update.getMonsters());
 
             if (monsterIndex != 999) {
                 getgameController().getPlayer().damageMonster(monsterIndex, getAttackPower());
-                generateParticle(user.getProjectile(), getgameController().getMonsters()[getgameController().getCurrentMap()][monsterIndex]);
+                generateParticle(user.getProjectile(), getgameController().update.getMonsters()[getgameController().update.getCurrentMap()][monsterIndex]);
                 setAlive(false);
             }
 

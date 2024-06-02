@@ -29,7 +29,6 @@ public abstract class Entity implements Asset {
     public int index;
     public String name;
     public int worldX, worldY;
-
     public int speed;
     public int maxLife;
     public int currentLife;
@@ -123,9 +122,9 @@ public abstract class Entity implements Asset {
         CollisionChecker checker = gameController.getCollisionChecker();
         checker.checkTile(this);
         checker.checkObject(this, false);
-        checker.checkEntity(this, gameController.getNpcs());
-        checker.checkEntity(this, gameController.getMonsters());
-        checker.checkEntity(this, gameController.getInteractiveTiles());
+        checker.checkEntity(this, gameController.update.getNpcs());
+        checker.checkEntity(this, gameController.update.getMonsters());
+        checker.checkEntity(this, gameController.update.getInteractiveTiles());
         boolean contactPlayer = checker.checkPlayer(this);
 
         if (this instanceof Monster && contactPlayer) {
@@ -382,12 +381,12 @@ public abstract class Entity implements Asset {
 
     @Override
     public void dropObject(Asset droppedObject) {
-        for (int i = 0; i < gameController.getObjects().length; i++) {
-            if (gameController.getObjects()[gameController.getCurrentMap()][i] == null) {
-                gameController.getObjects()[gameController.getCurrentMap()][i] = droppedObject;
-                gameController.getObjects()[gameController.getCurrentMap()][i].setWorldX(worldX);
-                gameController.getObjects()[gameController.getCurrentMap()][i].setWorldY(worldY);
-                gameController.getObjects()[gameController.getCurrentMap()][i].setIndex(i);
+        for (int i = 0; i <gameController.update.getObjects().length; i++) {
+            if (gameController.update.getObjects()[gameController.update.getCurrentMap()][i] == null) {
+               gameController.update.getObjects()[gameController.update.getCurrentMap()][i] = droppedObject;
+               gameController.update.getObjects()[gameController.update.getCurrentMap()][i].setWorldX(worldX);
+               gameController.update.getObjects()[gameController.update.getCurrentMap()][i].setWorldY(worldY);
+               gameController.update.getObjects()[gameController.update.getCurrentMap()][i].setIndex(i);
                 break;
             }
         }
@@ -404,12 +403,13 @@ public abstract class Entity implements Asset {
         Particle p3 = new Particle(gameController, target, color, size, speed, maxLife, -2, 1);
         Particle p4 = new Particle(gameController, target, color, size, speed, maxLife, 2, 1);
 
-        gameController.getParticles().add(p1);
-        gameController.getParticles().add(p2);
-        gameController.getParticles().add(p3);
-        gameController.getParticles().add(p4);
+       gameController.update.getParticles().add(p1);
+       gameController.update.getParticles().add(p2);
+       gameController.update.getParticles().add(p3);
+       gameController.update.getParticles().add(p4);
     }
 
+    // GETTER SETTER
 
     public GameController getgameController() {
         return gameController;

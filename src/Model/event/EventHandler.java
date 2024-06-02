@@ -43,7 +43,9 @@ public class EventHandler {
             }
         }
     }
-
+    /*
+    kiểm tra xem người dùng đã chạm vào event chưa
+     */
     public void checkEvent() {
         int xDistance = Math.abs(gameController.getPlayer().getWorldX() - previousEventX);
         int yDistance = Math.abs(gameController.getPlayer().getWorldY() - previousEventY);
@@ -66,19 +68,24 @@ public class EventHandler {
              if (hit(0, 10, 39, "any")) {
                 teleport(1, 16, 13);
             }
+             // Event diễn ra ở map 1
+            if (hit(0, 32, 13, "any")) {
+                teleport(1, 16, 13);
+            }
              if (hit(1, 16, 13, "any")) {
                  teleport(0, 10, 39);
              }
-             if (hit(1, 12, 9, "up")) {
-                speak(gameController.getNpcs()[1][0]);
+             if (hit(1, 10, 9, "up")) {
+                speak(gameController.update.getNpcs()[1][3]);
             }
+
         }
     }
-
+    // Xác nhận event diễn ra
     public boolean hit(int map, int col, int row, String requiredDirection) {
         boolean hit = false;
 
-        if (map == gameController.getCurrentMap()) {
+        if (map == gameController.update.getCurrentMap()) {
             Player player = gameController.getPlayer();
             player.getCollisionArea().x = player.getWorldX() + player.getCollisionArea().x;
             player.getCollisionArea().y = player.getWorldY() + player.getCollisionArea().y;
@@ -107,11 +114,12 @@ public class EventHandler {
 
     private void speak(Asset asset) {
         if (gameController.getKeyHandler().isEnterPressed()) {
-            gameController.setGameState(gameController.getDialogueState());
-            asset.speak();
+            gameController.getUi().setCurrentDialogue("You fell into a pit!");
+//            gameController.setGameState(gameController.getDialogueState());
+//            asset.speak();
         }
     }
-
+    // Event dẫm phải bẫy
     private void damagePit() {
         gameController.setGameState(gameController.getDialogueState());
         gameController.playSoundEffect(6);
@@ -119,7 +127,7 @@ public class EventHandler {
         gameController.getPlayer().setCurrentLife(gameController.getPlayer().getCurrentLife() - 1);
         canTouchEvent = false;
     }
-
+    // event hồi phục
     private void healingPool() {
         if (gameController.getKeyHandler().isEnterPressed()) {
             gameController.setGameState(gameController.getDialogueState());
@@ -130,7 +138,7 @@ public class EventHandler {
             gameController.getAssetManager().setMonsters();
         }
     }
-
+    // event dịch chuyển
     private void teleport(int map, int col, int row) {
         gameController.setGameState(gameController.getTransitionState());
         tempMap = map;

@@ -30,7 +30,7 @@ public class OBJ_Chest extends Object {
         gameController.setGameState(gameController.getDialogueState());
         gameController.getUi().setCurrentDialogue("You  open  " + getName() + "!\n" + "You have restored " + getValue());
 
-            gameController.player.getInventory().add(gameController.getObjects()[gameController.getCurrentMap()][5] );
+            gameController.player.getInventory().add(gameController.update.getObjects()[gameController.update.getCurrentMap()][5] );
             gameController.player.setExp(50);
             gameController.getUi().addMessage("Exp + " + 50);
             gameController.player.checkLevelUp();

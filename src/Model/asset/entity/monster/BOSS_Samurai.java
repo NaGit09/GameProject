@@ -8,8 +8,8 @@ import Model.asset.object.usable.inventory.OBJ_Key;
 import java.awt.*;
 import java.util.Random;
 
-public class BOSS_Ramurai extends Monster {
-    public BOSS_Ramurai(GameController gameController) {
+public class BOSS_Samurai extends Monster {
+    public BOSS_Samurai(GameController gameController) {
         super(gameController);
 
         setName("Boss Rammurai");

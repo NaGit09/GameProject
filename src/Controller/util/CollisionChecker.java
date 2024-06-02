@@ -30,8 +30,8 @@ public class CollisionChecker {
             case "up" -> {
                 entityTopRow = (entityTopWorldY - entity.getSpeed()) / gameController.getTileSize();
 
-                tileNum1 = gameController.getTileManager().getMapTileNumbers()[gameController.getCurrentMap()][entityLeftCol][entityTopRow];
-                tileNum2 = gameController.getTileManager().getMapTileNumbers()[gameController.getCurrentMap()][entityRightCol][entityTopRow];
+                tileNum1 = gameController.getTileManager().getMapTileNumbers()[gameController.update.getCurrentMap()][entityLeftCol][entityTopRow];
+                tileNum2 = gameController.getTileManager().getMapTileNumbers()[gameController.update.getCurrentMap()][entityRightCol][entityTopRow];
 
                 if (gameController.getTileManager().getTiles()[tileNum1].isCollision() || gameController.getTileManager().getTiles()[tileNum2].isCollision()) {
                     entity.setCollisionOn(true);
@@ -40,8 +40,8 @@ public class CollisionChecker {
             case "down" -> {
                 entityBottomRow = (entityBottomWorldY + entity.getSpeed()) / gameController.getTileSize();
 
-                tileNum1 = gameController.getTileManager().getMapTileNumbers()[gameController.getCurrentMap()][entityLeftCol][entityBottomRow];
-                tileNum2 = gameController.getTileManager().getMapTileNumbers()[gameController.getCurrentMap()][entityRightCol][entityBottomRow];
+                tileNum1 = gameController.getTileManager().getMapTileNumbers()[gameController.update.getCurrentMap()][entityLeftCol][entityBottomRow];
+                tileNum2 = gameController.getTileManager().getMapTileNumbers()[gameController.update.getCurrentMap()][entityRightCol][entityBottomRow];
 
                 if (gameController.getTileManager().getTiles()[tileNum1].isCollision() || gameController.getTileManager().getTiles()[tileNum2].isCollision()) {
                     entity.setCollisionOn(true);
@@ -50,8 +50,8 @@ public class CollisionChecker {
             case "left" -> {
                 entityLeftCol = (entityLeftWorldX - entity.getSpeed()) / gameController.getTileSize();
 
-                tileNum1 = gameController.getTileManager().getMapTileNumbers()[gameController.getCurrentMap()][entityLeftCol][entityTopRow];
-                tileNum2 = gameController.getTileManager().getMapTileNumbers()[gameController.getCurrentMap()][entityLeftCol][entityBottomRow];
+                tileNum1 = gameController.getTileManager().getMapTileNumbers()[gameController.update.getCurrentMap()][entityLeftCol][entityTopRow];
+                tileNum2 = gameController.getTileManager().getMapTileNumbers()[gameController.update.getCurrentMap()][entityLeftCol][entityBottomRow];
 
                 if (gameController.getTileManager().getTiles()[tileNum1].isCollision() || gameController.getTileManager().getTiles()[tileNum2].isCollision()) {
                     entity.setCollisionOn(true);
@@ -60,8 +60,8 @@ public class CollisionChecker {
             case "right" -> {
                 entityRightCol = (entityRightWorldX + entity.getSpeed()) / gameController.getTileSize();
 
-                tileNum1 = gameController.getTileManager().getMapTileNumbers()[gameController.getCurrentMap()][entityRightCol][entityTopRow];
-                tileNum2 = gameController.getTileManager().getMapTileNumbers()[gameController.getCurrentMap()][entityRightCol][entityBottomRow];
+                tileNum1 = gameController.getTileManager().getMapTileNumbers()[gameController.update.getCurrentMap()][entityRightCol][entityTopRow];
+                tileNum2 = gameController.getTileManager().getMapTileNumbers()[gameController.update.getCurrentMap()][entityRightCol][entityBottomRow];
 
                 if (gameController.getTileManager().getTiles()[tileNum1].isCollision() || gameController.getTileManager().getTiles()[tileNum2].isCollision()) {
                     entity.setCollisionOn(true);
@@ -73,9 +73,9 @@ public class CollisionChecker {
     public int checkObject(Entity entity, boolean isPlayer) {
         int index = 999;
 
-        Asset[][] objects = gameController.getObjects();
+        Asset[][] objects = gameController.update.getObjects();
         for (int i = 0; i < objects[1].length; i++) {
-            Asset object = objects[gameController.getCurrentMap()][i];
+            Asset object = objects[gameController.update.getCurrentMap()][i];
             if (object != null) {
                 entity.getCollisionArea().x = entity.getWorldX() + entity.getCollisionArea().x;
                 entity.getCollisionArea().y = entity.getWorldY() + entity.getCollisionArea().y;
@@ -110,7 +110,7 @@ public class CollisionChecker {
         int index = 999;
 
         for (int i = 0; i < targets[1].length; i++) {
-            Asset target = targets[gameController.getCurrentMap()][i];
+            Asset target = targets[gameController.update.getCurrentMap()][i];
             if (target != null) {
                 entity.getCollisionArea().x = entity.getWorldX() + entity.getCollisionArea().x;
                 entity.getCollisionArea().y = entity.getWorldY() + entity.getCollisionArea().y;

@@ -27,7 +27,7 @@ public class Monster extends Entity {
 
             getProjectile().set(getWorldX(), getWorldY(), getDirection(), true, this);
             getProjectile().subtractResource(this);
-            getgameController().getProjectiles().add(getProjectile());
+            getgameController().update.getProjectiles().add(getProjectile());
             setProjectileAvailableCounter(0);
         }
     }
