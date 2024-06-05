@@ -29,9 +29,8 @@ public abstract class InteractiveTile extends Entity {
         return destructible;
     }
 
-    public InteractiveTile setDestructible(boolean destructible) {
+    public void setDestructible(boolean destructible) {
         this.destructible = destructible;
-        return this;
     }
 
     public boolean isCorrectWeapon(Weapon weapon) {

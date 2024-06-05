@@ -20,7 +20,9 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
-
+/*
+Class chính , chịu trách nghiệm liên kết giữa view và model , thực hiện cập nhật game liên tục khi game bắt đầu chạy
+ */
 public class GameController implements Runnable {
     public controllerDraw draw = new controllerDraw(this) ;
     public controllerUpdate update = new controllerUpdate(this);
@@ -53,7 +55,6 @@ public class GameController implements Runnable {
     public final Player player = new Player(this, keyHandler);
     public final GamePanel gp;
     public GameController(GamePanel gp) {
-
         this.gp = gp;
     }
     public void setUpGame() {

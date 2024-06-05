@@ -20,8 +20,7 @@ public class Tile {
         return collision;
     }
 
-    public Tile setCollision(boolean collision) {
+    public void setCollision(boolean collision) {
         this.collision = collision;
-        return this;
     }
 }

@@ -17,10 +17,11 @@ public class OBJ_Chest extends Object {
         setName("Chest");
         setDescription("use key open check ");
         setValue(5);
+        int tile = gameController.getTileSize();
         setPrice(25);
         try {
             BufferedImage image1 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/resources/images/objects/chest.png")));
-            setImage1(UtilityTool.scaleImage(image1, gameController.getTileSize(), gameController.getTileSize()));
+            setImage1(UtilityTool.scaleImage(image1, tile, tile));
         } catch (IOException e) {
             e.printStackTrace();
         }

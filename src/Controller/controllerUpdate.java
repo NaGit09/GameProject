@@ -8,18 +8,19 @@ import Model.asset.tile.interactive.InteractiveTile;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
-
+/*
+Chứa các hàm cập nhất dữ liệu của model khi game chạy
+ */
 public class controllerUpdate {
     public GameController controller;
-    
     public final Asset[][] npcs = new Entity[Constants.maxMaps][10];
     public final Asset[][] monsters = new Entity[Constants.maxMaps][20];
     public final InteractiveTile[][] interactiveTiles = new InteractiveTile[Constants.maxMaps][50];
     public final List<Asset> projectiles = new ArrayList<>();
     public final List<Asset> particles = new ArrayList<>();
+
     public final Asset[][] objects = new Object[Constants.maxMaps][20];
     public final List<Asset> assets = new ArrayList<>();
-
     public int currentMap = 0;
 
     public controllerUpdate(GameController controller) {
@@ -32,7 +33,6 @@ public class controllerUpdate {
             }
         }
     }
-
     public void updateMonsters() {
         for (int i = 0; i < monsters[1].length; i++) {
             if ( monsters[ currentMap][i] != null) {
@@ -47,11 +47,9 @@ public class controllerUpdate {
             }
         }
     }
-
     public void removeMonster(int index) {
          monsters[ currentMap][index] = null;
     }
-
     public void updateProjectiles() {
         for (int i = 0; i <  projectiles.size(); i++) {
             if ( projectiles.get(i) != null) {
@@ -65,7 +63,6 @@ public class controllerUpdate {
             }
         }
     }
-
     public void updateParticles() {
         for (int i = 0; i <  particles.size(); i++) {
             if ( particles.get(i) != null) {
@@ -79,7 +76,6 @@ public class controllerUpdate {
             }
         }
     }
-
     public void updateInteractiveTiles() {
         for (int i = 0; i <  interactiveTiles[1].length; i++) {
             if ( interactiveTiles[ currentMap][i] != null) {
@@ -120,36 +116,30 @@ public class controllerUpdate {
             }
         }
     }
-
     public void sortAssets() {
         assets.sort(Comparator.comparingInt(Asset::getWorldY));
     }
     public Asset[][] getObjects() {
         return objects;
     }
-
     public Asset[][] getNpcs() {
         return npcs;
     }
-
     public Asset[][] getMonsters() {
         return monsters;
     }
     public List<Asset> getProjectiles() {
         return projectiles;
     }
-
     public InteractiveTile[][] getInteractiveTiles() {
         return interactiveTiles;
     }
-
     public List<Asset> getParticles() {
         return particles;
     }
     public int getCurrentMap() {
         return currentMap;
     }
-
     public void setCurrentMap(int currentMap) {
         this.currentMap = currentMap;
 

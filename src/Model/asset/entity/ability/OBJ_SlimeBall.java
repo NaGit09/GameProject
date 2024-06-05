@@ -2,11 +2,7 @@ package Model.asset.entity.ability;
 
 import Controller.GameController;
 import Model.asset.entity.Entity;
-import Model.asset.entity.ability.Projectile;
-
 import java.awt.*;
-
-
     public class OBJ_SlimeBall extends Projectile {
 
         public OBJ_SlimeBall(GameController gameController) {
@@ -22,7 +18,6 @@ import java.awt.*;
 
             getAnimationImages();
         }
-
         public void getAnimationImages() {
             int width = getgameController().getTileSize();
             int height = getgameController().getTileSize();
@@ -35,35 +30,28 @@ import java.awt.*;
             setRight1(setup("/resources/images/ability/waterball_right_1", width, height));
             setRight2(setup("/resources/images/ability/waterball_right_2", width, height));
         }
-
         @Override
         public boolean haveEnoughResource(Entity user) {
             return user.getCurrentMana() >= getUseCost();
         }
-
         @Override
         public void subtractResource(Entity user) {
             user.setCurrentMana(user.getCurrentMana() - getUseCost());
         }
-
         @Override
         public Color getParticleColor() {
             return new Color(10, 113, 239);
         }
-
         @Override
         public int getParticleSize() {
             return 10; // pixels
         }
-
         @Override
         public int getParticleSpeed() {
             return 1;
         }
-
         @Override
         public int getParticleMaxLife() {
             return 20; // How long it will last
         }
-
     }

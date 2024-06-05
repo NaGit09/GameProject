@@ -20,15 +20,17 @@ public class OBJ_Heart extends PickUpOnlyObject {
         setValue(2);
         setDescription("[" + getName() + "]\nWill restore " + getValue() + " life");
 
+        int tile = gameController.getTileSize();
+
         try {
             BufferedImage image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/resources/images/objects/heart_full.png")));
-            setImage1(UtilityTool.scaleImage(image, gameController.getTileSize(), gameController.getTileSize()));
+            setImage1(UtilityTool.scaleImage(image, tile, tile));
 
             image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/resources/images/objects/heart_half.png")));
-            setImage2(UtilityTool.scaleImage(image, gameController.getTileSize(), gameController.getTileSize()));
+            setImage2(UtilityTool.scaleImage(image, tile, tile));
 
             image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/resources/images/objects/heart_blank.png")));
-            setImage3(UtilityTool.scaleImage(image, gameController.getTileSize(), gameController.getTileSize()));
+            setImage3(UtilityTool.scaleImage(image, tile, tile));
         } catch (IOException e) {
             e.printStackTrace();
         }

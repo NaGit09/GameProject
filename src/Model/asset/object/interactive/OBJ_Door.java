@@ -24,10 +24,10 @@ public class OBJ_Door extends Object {
         getCollisionArea().height = 32;
         setCollisionDefaultX(getCollisionArea().x);
         setCollisionDefaultY(getCollisionArea().y);
-
+        int tile = gameController.getTileSize();
         try {
             BufferedImage image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/images/objects/door.png")));
-            setImage1(UtilityTool.scaleImage(image, gameController.getTileSize(), gameController.getTileSize()));
+            setImage1(UtilityTool.scaleImage(image, tile, tile));
         } catch (IOException e) {
             e.printStackTrace();
         }

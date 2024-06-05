@@ -5,22 +5,21 @@ import View.UI;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-
+/*
+ class chứa các hàm xử lí dữ liệu từ bàn phím  của người chơi
+ */
 public class KeyHandler implements KeyListener {
     private boolean upPressed, downPressed, leftPressed, rightPressed, enterPressed, spacePressed, projectileKeyPressed;
     private final GameController gameController;
-
     // DEBUG
     private boolean showDebugText = false;
-
     public KeyHandler(GameController gameController) {
         this.gameController = gameController;
     }
-
+    // CÁC HÀM OVERRIDE TỪ KeyListener
     @Override
     public void keyPressed(KeyEvent e) {
         int code = e.getKeyCode();
-
         switch (gameController.getGameState()) {
             case titleState -> checkTitleStateKeyPressed(code);
             case playState -> checkPlayStateKeyPressed(code);
@@ -32,7 +31,25 @@ public class KeyHandler implements KeyListener {
             case tradeState -> checkTradeStateKeyPressed(code);
         }
     }
+    @Override
+    public void keyReleased(KeyEvent e) {
+        int code = e.getKeyCode();
 
+        switch (code) {
+            case  KeyEvent.VK_W -> upPressed=false;
+            case KeyEvent.VK_S -> downPressed=false;
+            case KeyEvent.VK_A -> leftPressed=false;
+            case KeyEvent.VK_D -> rightPressed=false;
+            case KeyEvent.VK_SPACE -> spacePressed=false;
+            case KeyEvent.VK_F -> projectileKeyPressed=false;
+
+        }
+    }
+    @Override
+    public void keyTyped(KeyEvent e) {
+        // Not used
+    }
+    // CÁC HÀM CHECK
     private void checkTitleStateKeyPressed(int code) {
         if (gameController.getUi().getTitleScreenState() == 0) {
             checkMainTitleScreenKeyPressed(code);
@@ -160,7 +177,6 @@ public class KeyHandler implements KeyListener {
 
         playerInventoryMovement(code);
     }
-
     private void playerInventoryMovement(int code) {
         switch (code) {
             case KeyEvent.VK_W -> {
@@ -191,8 +207,6 @@ public class KeyHandler implements KeyListener {
 
 
     }
-
-
     private void checkOptionStateKeyPressed(int code) {
         if (code == KeyEvent.VK_ESCAPE) {
             gameController.setGameState(gameController.getPlayState());
@@ -256,7 +270,6 @@ public class KeyHandler implements KeyListener {
             }
         }
     }
-
     private void checkGameOverStateKeyPressed(int code) {
         if (code == KeyEvent.VK_W) {
             gameController.getUi().setCommandNumber(gameController.getUi().getCommandNumber() - 1);
@@ -278,9 +291,6 @@ public class KeyHandler implements KeyListener {
             enterPressed = true;
         }
     }
-
-
-
     private void checkTradeStateKeyPressed(int code) {
         if (code == KeyEvent.VK_ENTER) {
             enterPressed = true;
@@ -319,7 +329,6 @@ public class KeyHandler implements KeyListener {
             }
         }
     }
-
     private void npcInventoryMovement(int code) {
         UI   ui = gameController.getUi();
         switch (code) {
@@ -351,94 +360,58 @@ public class KeyHandler implements KeyListener {
 
     }
 
-    @Override
-    public void keyReleased(KeyEvent e) {
-        int code = e.getKeyCode();
-
-        switch (code) {
-            case  KeyEvent.VK_W -> upPressed=false;
-            case KeyEvent.VK_S -> downPressed=false;
-            case KeyEvent.VK_A -> leftPressed=false;
-            case KeyEvent.VK_D -> rightPressed=false;
-            case KeyEvent.VK_SPACE -> spacePressed=false;
-            case KeyEvent.VK_F -> projectileKeyPressed=false;
-
-        }
-    }
-
-    @Override
-    public void keyTyped(KeyEvent e) {
-        // Not used
-    }
-
-// CÁC GETTER SETTER METOD
+// CÁC GETTER SETTER METHOD
     public boolean isUpPressed() {
         return upPressed;
     }
-
     public KeyHandler setUpPressed(boolean upPressed) {
         this.upPressed = upPressed;
         return this;
     }
-
     public boolean isDownPressed() {
         return downPressed;
     }
-
     public KeyHandler setDownPressed(boolean downPressed) {
         this.downPressed = downPressed;
         return this;
     }
-
     public boolean isLeftPressed() {
         return leftPressed;
     }
-
     public KeyHandler setLeftPressed(boolean leftPressed) {
         this.leftPressed = leftPressed;
         return this;
     }
-
     public boolean isRightPressed() {
         return rightPressed;
     }
-
     public KeyHandler setRightPressed(boolean rightPressed) {
         this.rightPressed = rightPressed;
         return this;
     }
-
     public boolean isEnterPressed() {
         return enterPressed;
     }
-
-    public KeyHandler setEnterPressed(boolean enterPressed) {
+    public void setEnterPressed(boolean enterPressed) {
         this.enterPressed = enterPressed;
-        return this;
     }
-
     public boolean isShowDebugText() {
         return showDebugText;
     }
-
     public KeyHandler setShowDebugText(boolean showDebugText) {
         this.showDebugText = showDebugText;
         return this;
     }
-
     public boolean isSpacePressed() {
         return spacePressed;
     }
-
     public KeyHandler setSpacePressed(boolean spacePressed) {
         this.spacePressed = spacePressed;
         return this;
     }
-
     public boolean isProjectileKeyPressed() {
         return projectileKeyPressed;
     }
-
     public KeyHandler setProjectileKeyPressed(boolean projectileKeyPressed) {
         this.projectileKeyPressed = projectileKeyPressed;
         return this;

@@ -19,10 +19,10 @@ public class OBJ_Coin_Bronze extends PickUpOnlyObject {
         setName("Bronze Coin");
         setValue(1);
         setDescription("[" + getName() + "]\nA coin worth " + getValue());
-
+        int tile = gameController.getTileSize();
         try {
             BufferedImage image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/resources/images/objects/coin_bronze.png")));
-            setImage1(UtilityTool.scaleImage(image, gameController.getTileSize(), gameController.getTileSize()));
+            setImage1(UtilityTool.scaleImage(image, tile, tile));
         } catch (IOException e) {
             e.printStackTrace();
         }

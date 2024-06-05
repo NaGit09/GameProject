@@ -21,10 +21,10 @@ public class OBJ_Potion_Red extends Object {
         setValue(5);
         setDescription("[" + getName() + "]\nRestores " + getValue() + " health");
         setPrice(25);
-
+        int tile = gameController.getTileSize();
         try {
             BufferedImage image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/resources/images/objects/potion_red.png")));
-            setImage1(UtilityTool.scaleImage(image, gameController.getTileSize(), gameController.getTileSize()));
+            setImage1(UtilityTool.scaleImage(image, tile, tile));
         } catch (IOException e) {
             e.printStackTrace();
         }

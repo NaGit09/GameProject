@@ -3,16 +3,15 @@ package Controller.util;
 import Controller.GameController;
 import Model.asset.Asset;
 import Model.asset.entity.Entity;
+import Model.asset.tile.Tile;
 
 public class CollisionChecker {
-
     private final GameController gameController;
-
     public CollisionChecker(GameController gameController) {
 
         this.gameController = gameController;
     }
-
+// KIỂM TRA XEM PLAYER ĐÃ CHẠM VÀO TILE HAY CHƯA
     public void checkTile(Entity entity) {
         int entityLeftWorldX = entity.getWorldX() + entity.getCollisionArea().x;
         int entityRightWorldX = entity.getWorldX() + entity.getCollisionArea().x + entity.getCollisionArea().width;
@@ -23,53 +22,58 @@ public class CollisionChecker {
         int entityRightCol = entityRightWorldX / gameController.getTileSize();
         int entityTopRow = entityTopWorldY / gameController.getTileSize();
         int entityBottomRow = entityBottomWorldY / gameController.getTileSize();
-
+        // EXTRA
+        int [][][] map = gameController.getTileManager().getMapTileNumbers();
+        int currentMap = gameController.update.getCurrentMap();
+        int tileSize = gameController.getTileSize();
         int tileNum1, tileNum2;
+        Tile[] tile = gameController.getTileManager().getTiles();
+
 
         switch (entity.getDirection()) {
             case "up" -> {
-                entityTopRow = (entityTopWorldY - entity.getSpeed()) / gameController.getTileSize();
+                entityTopRow = (entityTopWorldY - entity.getSpeed()) / tileSize;
 
-                tileNum1 = gameController.getTileManager().getMapTileNumbers()[gameController.update.getCurrentMap()][entityLeftCol][entityTopRow];
-                tileNum2 = gameController.getTileManager().getMapTileNumbers()[gameController.update.getCurrentMap()][entityRightCol][entityTopRow];
+                tileNum1 = map[currentMap][entityLeftCol][entityTopRow];
+                tileNum2 = map[currentMap][entityRightCol][entityTopRow];
 
-                if (gameController.getTileManager().getTiles()[tileNum1].isCollision() || gameController.getTileManager().getTiles()[tileNum2].isCollision()) {
+                if (tile[tileNum1].isCollision() ||tile[tileNum2].isCollision()) {
                     entity.setCollisionOn(true);
                 }
             }
             case "down" -> {
-                entityBottomRow = (entityBottomWorldY + entity.getSpeed()) / gameController.getTileSize();
+                entityBottomRow = (entityBottomWorldY + entity.getSpeed()) / tileSize;
 
-                tileNum1 = gameController.getTileManager().getMapTileNumbers()[gameController.update.getCurrentMap()][entityLeftCol][entityBottomRow];
-                tileNum2 = gameController.getTileManager().getMapTileNumbers()[gameController.update.getCurrentMap()][entityRightCol][entityBottomRow];
+                tileNum1 = map[currentMap][entityLeftCol][entityBottomRow];
+                tileNum2 = map[currentMap][entityRightCol][entityBottomRow];
 
-                if (gameController.getTileManager().getTiles()[tileNum1].isCollision() || gameController.getTileManager().getTiles()[tileNum2].isCollision()) {
+                if (tile[tileNum1].isCollision() || tile[tileNum2].isCollision()) {
                     entity.setCollisionOn(true);
                 }
             }
             case "left" -> {
-                entityLeftCol = (entityLeftWorldX - entity.getSpeed()) / gameController.getTileSize();
+                entityLeftCol = (entityLeftWorldX - entity.getSpeed()) / tileSize;
 
-                tileNum1 = gameController.getTileManager().getMapTileNumbers()[gameController.update.getCurrentMap()][entityLeftCol][entityTopRow];
-                tileNum2 = gameController.getTileManager().getMapTileNumbers()[gameController.update.getCurrentMap()][entityLeftCol][entityBottomRow];
+                tileNum1 = map[currentMap][entityLeftCol][entityTopRow];
+                tileNum2 = map[currentMap][entityLeftCol][entityBottomRow];
 
-                if (gameController.getTileManager().getTiles()[tileNum1].isCollision() || gameController.getTileManager().getTiles()[tileNum2].isCollision()) {
+                if (tile[tileNum1].isCollision() || tile[tileNum2].isCollision()) {
                     entity.setCollisionOn(true);
                 }
             }
             case "right" -> {
-                entityRightCol = (entityRightWorldX + entity.getSpeed()) / gameController.getTileSize();
+                entityRightCol = (entityRightWorldX + entity.getSpeed()) / tileSize;
 
-                tileNum1 = gameController.getTileManager().getMapTileNumbers()[gameController.update.getCurrentMap()][entityRightCol][entityTopRow];
-                tileNum2 = gameController.getTileManager().getMapTileNumbers()[gameController.update.getCurrentMap()][entityRightCol][entityBottomRow];
+                tileNum1 = map[currentMap][entityRightCol][entityTopRow];
+                tileNum2 = map[currentMap][entityRightCol][entityBottomRow];
 
-                if (gameController.getTileManager().getTiles()[tileNum1].isCollision() || gameController.getTileManager().getTiles()[tileNum2].isCollision()) {
+                if (tile[tileNum1].isCollision() || tile[tileNum2].isCollision()) {
                     entity.setCollisionOn(true);
                 }
             }
         }
     }
-
+    // KIỂM TRA XEM NGƯỜI CHƠI ĐÃ CHẠM VÀO OBJ CHƯA
     public int checkObject(Entity entity, boolean isPlayer) {
         int index = 999;
 
@@ -89,7 +93,7 @@ public class CollisionChecker {
                     if (object.isCollision()) {
                         entity.setCollisionOn(true);
                     }
-
+                    // NẾU PLAYER CHẠM VÀO THÌ TRẢ VỀ VỊ TRÍ CỦA OBJ ĐÓ TRONG GAME CONTROLLER CHỨA LIST OBJECT Đ
                     if (isPlayer) {
                         index = object.getIndex();
                     }
@@ -104,7 +108,7 @@ public class CollisionChecker {
 
         return index;
     }
-
+    // KIỂM TRA XEM ENTITY CÓ VA CHẠM NHAU KHÔNG
     public int checkEntity(Entity entity, Asset[][] targets) {
 
         int index = 999;
@@ -136,7 +140,7 @@ public class CollisionChecker {
 
         return index;
     }
-
+    // KIỂM TRA XEM PLAYER CÓ CHẠM VÀO ENTITY HAY KHÔNG
     public boolean checkPlayer(Entity entity) {
         boolean contactPlayer = false;
         Asset player = gameController.getPlayer();
@@ -160,7 +164,7 @@ public class CollisionChecker {
 
         return contactPlayer;
     }
-
+    // THIẾT LẬP HƯỚNG ĐI MỚI CHO ENTITY KHI XẢY RA VA CHẠM
     public  void checkFutureMovement(Entity entity) {
         switch (entity.getDirection()) {
             case "up" -> entity.getCollisionArea().y -= entity.getSpeed();

@@ -289,15 +289,15 @@ public abstract class Entity implements Asset {
 
     public BufferedImage getDirectionalAnimationImage() {
         BufferedImage image = null;
-
+        boolean flag = isAttacking();
         switch (getDirection()) {
             case "up" -> {
-                if (!isAttacking()) {
+                if (!flag) {
                     if (getSpriteNumber() == 1)
                         image = getUp1();
                     if (getSpriteNumber() == 2)
                         image = getUp2();
-                } else if (isAttacking()) {
+                } else  {
                     if (getSpriteNumber() == 1)
                         image = getAttackUp1();
                     if (getSpriteNumber() == 2)
@@ -305,12 +305,12 @@ public abstract class Entity implements Asset {
                 }
             }
             case "down" -> {
-                if (!isAttacking()) {
+                if (!flag) {
                     if (getSpriteNumber() == 1)
                         image = getDown1();
                     if (getSpriteNumber() == 2)
                         image = getDown2();
-                } else if (isAttacking()) {
+                } else {
                     if (getSpriteNumber() == 1)
                         image = getAttackDown1();
                     if (getSpriteNumber() == 2)
@@ -319,12 +319,12 @@ public abstract class Entity implements Asset {
 
             }
             case "left" -> {
-                if (!isAttacking()) {
+                if (!flag) {
                     if (getSpriteNumber() == 1)
                         image = getLeft1();
                     if (getSpriteNumber() == 2)
                         image = getLeft2();
-                } else if (isAttacking()) {
+                } else  {
                     if (getSpriteNumber() == 1)
                         image = getAttackLeft1();
                     if (getSpriteNumber() == 2)
@@ -333,12 +333,12 @@ public abstract class Entity implements Asset {
 
             }
             case "right" -> {
-                if (!isAttacking()) {
+                if (!flag) {
                     if (getSpriteNumber() == 1)
                         image = getRight1();
                     if (getSpriteNumber() == 2)
                         image = getRight2();
-                } else if (isAttacking()) {
+                } else  {
                     if (getSpriteNumber() == 1)
                         image = getAttackRight1();
                     if (getSpriteNumber() == 2)
@@ -372,6 +372,7 @@ public abstract class Entity implements Asset {
             e.printStackTrace();
         }
 
+        assert image != null;
         return UtilityTool.scaleImage(image, width, height);
     }
 
@@ -419,9 +420,9 @@ public abstract class Entity implements Asset {
         return name;
     }
 
-    public Entity setName(String name) {
+    public void setName(String name) {
         this.name = name;
-        return this;
+        
     }
 
     public int getWorldX() {
@@ -444,225 +445,209 @@ public abstract class Entity implements Asset {
         return speed;
     }
 
-    public Entity setSpeed(int speed) {
+    public void setSpeed(int speed) {
         this.speed = speed;
-        return this;
     }
 
     public BufferedImage getUp1() {
         return up1;
     }
 
-    public Entity setUp1(BufferedImage up1) {
+    public void setUp1(BufferedImage up1) {
         this.up1 = up1;
-        return this;
+        
     }
 
     public BufferedImage getUp2() {
         return up2;
     }
 
-    public Entity setUp2(BufferedImage up2) {
+    public void setUp2(BufferedImage up2) {
         this.up2 = up2;
-        return this;
+        
     }
 
     public BufferedImage getDown1() {
         return down1;
     }
 
-    public Entity setDown1(BufferedImage down1) {
+    public void setDown1(BufferedImage down1) {
         this.down1 = down1;
-        return this;
+        
     }
 
     public BufferedImage getDown2() {
         return down2;
     }
 
-    public Entity setDown2(BufferedImage down2) {
+    public void setDown2(BufferedImage down2) {
         this.down2 = down2;
-        return this;
+        
     }
 
     public BufferedImage getLeft1() {
         return left1;
     }
 
-    public Entity setLeft1(BufferedImage left1) {
+    public void setLeft1(BufferedImage left1) {
         this.left1 = left1;
-        return this;
+        
     }
 
     public BufferedImage getLeft2() {
         return left2;
     }
 
-    public Entity setLeft2(BufferedImage left2) {
+    public void setLeft2(BufferedImage left2) {
         this.left2 = left2;
-        return this;
+        
     }
 
     public BufferedImage getRight1() {
         return right1;
     }
 
-    public Entity setRight1(BufferedImage right1) {
+    public void setRight1(BufferedImage right1) {
         this.right1 = right1;
-        return this;
+        
     }
 
     public BufferedImage getRight2() {
         return right2;
     }
 
-    public Entity setRight2(BufferedImage right2) {
+    public void setRight2(BufferedImage right2) {
         this.right2 = right2;
-        return this;
+        
     }
 
     public BufferedImage getAttackUp1() {
         return attackUp1;
     }
 
-    public Entity setAttackUp1(BufferedImage attackUp1) {
+    public void setAttackUp1(BufferedImage attackUp1) {
         this.attackUp1 = attackUp1;
-        return this;
     }
 
     public BufferedImage getAttackUp2() {
         return attackUp2;
     }
 
-    public Entity setAttackUp2(BufferedImage attackUp2) {
+    public void setAttackUp2(BufferedImage attackUp2) {
         this.attackUp2 = attackUp2;
-        return this;
     }
 
     public BufferedImage getAttackDown1() {
         return attackDown1;
     }
 
-    public Entity setAttackDown1(BufferedImage attackDown1) {
+    public void setAttackDown1(BufferedImage attackDown1) {
         this.attackDown1 = attackDown1;
-        return this;
     }
 
     public BufferedImage getAttackDown2() {
         return attackDown2;
     }
 
-    public Entity setAttackDown2(BufferedImage attackDown2) {
+    public void setAttackDown2(BufferedImage attackDown2) {
         this.attackDown2 = attackDown2;
-        return this;
     }
 
     public BufferedImage getAttackLeft1() {
         return attackLeft1;
     }
 
-    public Entity setAttackLeft1(BufferedImage attackLeft1) {
+    public void setAttackLeft1(BufferedImage attackLeft1) {
         this.attackLeft1 = attackLeft1;
-        return this;
     }
 
     public BufferedImage getAttackLeft2() {
         return attackLeft2;
     }
 
-    public Entity setAttackLeft2(BufferedImage attackLeft2) {
+    public void setAttackLeft2(BufferedImage attackLeft2) {
         this.attackLeft2 = attackLeft2;
-        return this;
     }
 
     public BufferedImage getAttackRight1() {
         return attackRight1;
     }
 
-    public Entity setAttackRight1(BufferedImage attackRight1) {
+    public void setAttackRight1(BufferedImage attackRight1) {
         this.attackRight1 = attackRight1;
-        return this;
     }
 
     public BufferedImage getAttackRight2() {
         return attackRight2;
     }
 
-    public Entity setAttackRight2(BufferedImage attackRight2) {
+    public void setAttackRight2(BufferedImage attackRight2) {
         this.attackRight2 = attackRight2;
-        return this;
     }
 
     public String getDirection() {
         return direction;
     }
 
-    public Entity setDirection(String direction) {
+    public void setDirection(String direction) {
         this.direction = direction;
-        return this;
     }
 
     public int getSpriteCounter() {
         return spriteCounter;
     }
 
-    public Entity setSpriteCounter(int spriteCounter) {
+    public void setSpriteCounter(int spriteCounter) {
         this.spriteCounter = spriteCounter;
-        return this;
     }
 
     public int getSpriteNumber() {
         return spriteNumber;
     }
 
-    public Entity setSpriteNumber(int spriteNumber) {
+    public void setSpriteNumber(int spriteNumber) {
         this.spriteNumber = spriteNumber;
-        return this;
+        
     }
 
     public Rectangle getCollisionArea() {
         return collisionArea;
     }
 
-    public Entity setCollisionArea(Rectangle collisionArea) {
+    public void setCollisionArea(Rectangle collisionArea) {
         this.collisionArea = collisionArea;
-        return this;
     }
 
     public int getCollisionDefaultX() {
         return collisionDefaultX;
     }
 
-    public Entity setCollisionDefaultX(int collisionDefaultX) {
+    public void setCollisionDefaultX(int collisionDefaultX) {
         this.collisionDefaultX = collisionDefaultX;
-        return this;
     }
 
     public int getCollisionDefaultY() {
         return collisionDefaultY;
     }
 
-    public Entity setCollisionDefaultY(int collisionDefaultY) {
+    public void setCollisionDefaultY(int collisionDefaultY) {
         this.collisionDefaultY = collisionDefaultY;
-        return this;
     }
 
     public boolean isCollisionOn() {
         return collisionOn;
     }
 
-    public Entity setCollisionOn(boolean collisionOn) {
+    public void setCollisionOn(boolean collisionOn) {
         this.collisionOn = collisionOn;
-        return this;
     }
 
     public int getActionLockCounter() {
         return actionLockCounter;
     }
 
-    public Entity setActionLockCounter(int actionLockCounter) {
+    public void setActionLockCounter(int actionLockCounter) {
         this.actionLockCounter = actionLockCounter;
-        return this;
     }
 
     public boolean isInvincible() {
@@ -677,9 +662,9 @@ public abstract class Entity implements Asset {
         return invincibleCounter;
     }
 
-    public Entity setInvincibleCounter(int invincibleCounter) {
+    public void setInvincibleCounter(int invincibleCounter) {
         this.invincibleCounter = invincibleCounter;
-        return this;
+        
     }
 
     public int getIndex() {
@@ -694,9 +679,8 @@ public abstract class Entity implements Asset {
         return maxLife;
     }
 
-    public Entity setMaxLife(int maxLife) {
+    public void setMaxLife(int maxLife) {
         this.maxLife = maxLife;
-        return this;
     }
 
     public int getCurrentLife() {
@@ -711,9 +695,8 @@ public abstract class Entity implements Asset {
         return attacking;
     }
 
-    public Entity setAttacking(boolean attacking) {
+    public void setAttacking(boolean attacking) {
         this.attacking = attacking;
-        return this;
     }
 
     @Override
@@ -754,171 +737,169 @@ public abstract class Entity implements Asset {
         return hpBarOn;
     }
 
-    public Entity setHpBarOn(boolean hpBarOn) {
+    public void setHpBarOn(boolean hpBarOn) {
         this.hpBarOn = hpBarOn;
-        return this;
     }
 
     public int getHpBarCounter() {
         return hpBarCounter;
     }
 
-    public Entity setHpBarCounter(int hpBarCounter) {
+    public void setHpBarCounter(int hpBarCounter) {
         this.hpBarCounter = hpBarCounter;
-        return this;
+        
     }
 
     public int getLevel() {
         return level;
     }
 
-    public Entity setLevel(int level) {
+    public void setLevel(int level) {
         this.level = level;
-        return this;
+        
     }
 
     public int getStrength() {
         return strength;
     }
 
-    public Entity setStrength(int strength) {
+    public void setStrength(int strength) {
         this.strength = strength;
-        return this;
+        
     }
 
     public int getDexterity() {
         return dexterity;
     }
 
-    public Entity setDexterity(int dexterity) {
+    public void setDexterity(int dexterity) {
         this.dexterity = dexterity;
-        return this;
+        
     }
 
     public int getAttackPower() {
         return attackPower;
     }
 
-    public Entity setAttackPower(int attackPower) {
+    public void setAttackPower(int attackPower) {
         this.attackPower = attackPower;
-        return this;
+        
     }
 
     public int getDefensePower() {
         return defensePower;
     }
 
-    public Entity setDefensePower(int defensePower) {
+    public void setDefensePower(int defensePower) {
         this.defensePower = defensePower;
-        return this;
+        
     }
 
     public int getExp() {
         return exp;
     }
 
-    public Entity setExp(int exp) {
+    public void setExp(int exp) {
         this.exp = exp;
-        return this;
+        
     }
 
     public int getNextLevelExp() {
         return nextLevelExp;
     }
 
-    public Entity setNextLevelExp(int nextLevelExp) {
+    public void setNextLevelExp(int nextLevelExp) {
         this.nextLevelExp = nextLevelExp;
-        return this;
+        
     }
 
     public int getCoins() {
         return coins;
     }
 
-    public Entity setCoins(int coins) {
+    public void setCoins(int coins) {
         this.coins = coins;
-        return this;
+        
     }
 
     public Weapon getCurrentWeapon() {
         return currentWeapon;
     }
 
-    public Entity setCurrentWeapon(Weapon currentWeapon) {
+    public void setCurrentWeapon(Weapon currentWeapon) {
         this.currentWeapon = currentWeapon;
-        return this;
+        
     }
 
     public Shield getCurrentShield() {
         return currentShield;
     }
 
-    public Entity setCurrentShield(Shield currentShield) {
+    public void setCurrentShield(Shield currentShield) {
         this.currentShield = currentShield;
-        return this;
+        
     }
 
     public int getMaxMana() {
         return maxMana;
     }
 
-    public Entity setMaxMana(int maxMana) {
+    public void setMaxMana(int maxMana) {
         this.maxMana = maxMana;
-        return this;
+        
     }
 
     public int getCurrentMana() {
         return currentMana;
     }
 
-    public Entity setCurrentMana(int currentMana) {
+    public void setCurrentMana(int currentMana) {
         this.currentMana = currentMana;
-        return this;
+        
     }
 
     public Projectile getProjectile() {
         return projectile;
     }
 
-    public Entity setProjectile(Projectile projectile) {
+    public void setProjectile(Projectile projectile) {
         this.projectile = projectile;
-        return this;
+        
     }
 
     public int getUseCost() {
         return useCost;
     }
 
-    public Entity setUseCost(int useCost) {
+    public void setUseCost(int useCost) {
         this.useCost = useCost;
-        return this;
+        
     }
 
     public int getProjectileAvailableCounter() {
         return projectileAvailableCounter;
     }
 
-    public Entity setProjectileAvailableCounter(int projectileAvailableCounter) {
+    public void setProjectileAvailableCounter(int projectileAvailableCounter) {
         this.projectileAvailableCounter = projectileAvailableCounter;
-        return this;
+        
     }
 
     public int getMaxAmmo() {
         return maxAmmo;
     }
 
-    public Entity setMaxAmmo(int maxAmmo) {
+    public void setMaxAmmo(int maxAmmo) {
         this.maxAmmo = maxAmmo;
-        return this;
+        
     }
 
     public int getCurrentAmmo() {
         return currentAmmo;
     }
 
-    public Entity setCurrentAmmo(int currentAmmo) {
+    public void setCurrentAmmo(int currentAmmo) {
         this.currentAmmo = currentAmmo;
-        return this;
     }
 
     public List<Asset> getInventory() {
@@ -1046,7 +1027,7 @@ public abstract class Entity implements Asset {
                 }
             }
             else if (enTopY < nextY && enLeftX < nextX) {
-                direction ="dowb";
+                direction ="down";
                 checkCollision();
                 if (collisionOn) {
                     direction = "right";

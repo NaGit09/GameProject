@@ -17,10 +17,10 @@ public class OBJ_Key extends Object {
         setName("Key");
         setDescription("[" + getName() + "]\nIt opens a door");
         setPrice(100);
-
+        int tile = gameController.getTileSize();
         try {
             BufferedImage image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/resources/images/objects/key.png")));
-            setImage1(UtilityTool.scaleImage(image, gameController.getTileSize(), gameController.getTileSize()));
+            setImage1(UtilityTool.scaleImage(image, tile, tile));
         } catch (IOException e) {
             e.printStackTrace();
         }

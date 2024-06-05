@@ -72,8 +72,7 @@ public class SoundManager {
         return volumeScale;
     }
 
-    public SoundManager setVolumeScale(int volumeScale) {
+    public void setVolumeScale(int volumeScale) {
         this.volumeScale = volumeScale;
-        return this;
     }
 }

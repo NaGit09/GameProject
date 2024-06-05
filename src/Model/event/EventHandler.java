@@ -1,7 +1,6 @@
 package Model.event;
 
 import Controller.GameController;
-import Model.asset.Asset;
 import Model.asset.entity.player.Player;
 
 public class EventHandler {
@@ -66,18 +65,22 @@ public class EventHandler {
                 healingPool();
             }
              if (hit(0, 10, 39, "any")) {
-                teleport(1, 16, 13);
+                teleport(1, 21, 14);
+            }
+            if (hit(0, 23, 21, "any")) {
+                speak();
             }
              // Event diễn ra ở map 1
             if (hit(0, 32, 13, "any")) {
                 teleport(1, 16, 13);
             }
-             if (hit(1, 16, 13, "any")) {
+             if (hit(1, 21, 14, "any")) {
                  teleport(0, 10, 39);
              }
-             if (hit(1, 10, 9, "up")) {
-                speak(gameController.update.getNpcs()[1][3]);
+             if (hit(1, 10, 9, "any")) {
+                speak();
             }
+
 
         }
     }
@@ -111,12 +114,15 @@ public class EventHandler {
 
         return hit;
     }
+    private void speak() {
+        if (gameController.getKeyHandler().isEnterPressed() && gameController.update.currentMap == 1) {
+            gameController.setGameState(gameController.getDialogueState());
+            gameController.getUi().setCurrentDialogue("Welcome to final stage . \nYou has to defeat last boss to the win game !");
 
-    private void speak(Asset asset) {
-        if (gameController.getKeyHandler().isEnterPressed()) {
-            gameController.getUi().setCurrentDialogue("You fell into a pit!");
-//            gameController.setGameState(gameController.getDialogueState());
-//            asset.speak();
+        } else if (gameController.getKeyHandler().isEnterPressed()) {
+            gameController.setGameState(gameController.getDialogueState());
+            gameController.getUi().setCurrentDialogue("Welcome to Pasadise Adventure  !");
+
         }
     }
     // Event dẫm phải bẫy
@@ -147,47 +153,35 @@ public class EventHandler {
         canTouchEvent = false;
         gameController.playSoundEffect(12);
     }
-
     public int getPreviousEventX() {
         return previousEventX;
     }
-
-    public EventHandler setPreviousEventX(int previousEventX) {
+    public void setPreviousEventX(int previousEventX) {
         this.previousEventX = previousEventX;
-        return this;
     }
-
     public int getPreviousEventY() {
         return previousEventY;
     }
-
-    public EventHandler setPreviousEventY(int previousEventY) {
+    public void setPreviousEventY(int previousEventY) {
         this.previousEventY = previousEventY;
-        return this;
     }
-
     public int getTempMap() {
         return tempMap;
     }
-
     public EventHandler setTempMap(int tempMap) {
         this.tempMap = tempMap;
         return this;
     }
-
     public int getTempCol() {
         return tempCol;
     }
-
     public EventHandler setTempCol(int tempCol) {
         this.tempCol = tempCol;
         return this;
     }
-
     public int getTempRow() {
         return tempRow;
     }
-
     public EventHandler setTempRow(int tempRow) {
         this.tempRow = tempRow;
         return this;

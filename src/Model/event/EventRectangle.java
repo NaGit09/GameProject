@@ -11,18 +11,16 @@ public class EventRectangle extends Rectangle {
         return eventRectDefaultX;
     }
 
-    public EventRectangle setEventRectDefaultX(int eventRectDefaultX) {
+    public void setEventRectDefaultX(int eventRectDefaultX) {
         this.eventRectDefaultX = eventRectDefaultX;
-        return this;
     }
 
     public int getEventRectDefaultY() {
         return eventRectDefaultY;
     }
 
-    public EventRectangle setEventRectDefaultY(int eventRectDefaultY) {
+    public void setEventRectDefaultY(int eventRectDefaultY) {
         this.eventRectDefaultY = eventRectDefaultY;
-        return this;
     }
 
     public boolean isEventDone() {

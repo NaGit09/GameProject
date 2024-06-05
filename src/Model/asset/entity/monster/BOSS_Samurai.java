@@ -2,6 +2,7 @@ package Model.asset.entity.monster;
 
 import Controller.GameController;
 import Model.asset.entity.ability.OBJ_Fireball;
+import Model.asset.entity.ability.OBJ_SlimeBall;
 import Model.asset.object.usable.inventory.OBJ_Key;
 
 
@@ -12,15 +13,16 @@ public class BOSS_Samurai extends Monster {
     public BOSS_Samurai(GameController gameController) {
         super(gameController);
 
-        setName("Boss Rammurai");
+        setName("Boss Samurai");
         setDirection("down");
         setSpeed(1);
         setMaxLife(99);
+        setMaxMana(99);
+        setCurrentMana(getMaxMana());
         setCurrentLife(getMaxLife());
         setAttackPower(20);
         setDefensePower(0);
         setExp(100);
-
         setProjectile( new OBJ_Fireball(gameController));
         setMaxAmmo(10);
         setCurrentAmmo(getMaxAmmo());
@@ -58,10 +60,7 @@ public class BOSS_Samurai extends Monster {
 
     @Override
     public void checkDrop() {
-        int i = new Random().nextInt(100) + 1;
         dropObject(new OBJ_Key(getgameController()));
-
-
     }
 
 }

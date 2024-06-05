@@ -4,7 +4,9 @@ import Controller.GameController;
 import Model.asset.entity.player.Player;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-
+/*
+CLASS CHỨA CÁC HÀM STATIC ĐỂ XỬ LÍ HÌNH ẢNH , VÀ KÍCH THƯỚC HIỂN THỊ HÌNH ẢNH
+ */
 public class UtilityTool {
 
     public static BufferedImage scaleImage(BufferedImage original, int width, int height) {
@@ -15,7 +17,6 @@ public class UtilityTool {
 
         return scaledImage;
     }
-
     public static int getXForCenterOfText(String text, GameController gameController, Graphics2D graphics2D) {
         int length = (int) graphics2D.getFontMetrics().getStringBounds(text, graphics2D).getWidth();
         return gameController.getScreenWidth() / 2 - length / 2;

@@ -3,16 +3,12 @@ package Model.asset;
 
 import Controller.GameController;
 import Controller.controllerUpdate;
-import Model.asset.entity.monster.BOSS_Samurai;
-import Model.asset.entity.monster.MON_Slime;
 import Model.asset.entity.monster.MonsterFactory;
 import Model.asset.entity.npc.NPCFactory;
 import Model.asset.object.equipment.OBJ_Axe;
-import Model.asset.object.equipment.OBJ_Boots;
+import Model.asset.object.usable.pickuponly.OBJ_Boots;
 import Model.asset.object.interactive.OBJ_Chest;
 import Model.asset.object.usable.inventory.OBJ_Key;
-import Model.asset.tile.interactive.IT_DryTree;
-import Model.asset.tile.interactive.IT_Teleport;
 import Model.asset.tile.interactive.TileFactory;
 
 public class AssetManager {
@@ -75,11 +71,6 @@ public class AssetManager {
         update.getNpcs()[map][2].setWorldX(tileSize * 25);
         update.getNpcs()[map][2].setWorldY(tileSize * 23);
         update.getNpcs()[map][2].setIndex(2);
-        map = 1;
-        update.getNpcs()[map][3] = factoryNPC.CreateNPC("oldman");
-        update.getNpcs()[map][3].setWorldX(tileSize * 10);
-        update.getNpcs()[map][3].setWorldY(tileSize * 9);
-        update.getNpcs()[map][3].setIndex(3);
 
     }
 
@@ -89,52 +80,52 @@ public class AssetManager {
 
         // MAP 0
         map = 0;
-        update.getMonsters()[map][0] = monsterFactory.createMonster("slime");;
+        update.getMonsters()[map][0] = monsterFactory.createMonster("slime");
         update.getMonsters()[map][0].setWorldX(tileSize * 21);
         update.getMonsters()[map][0].setWorldY(tileSize * 38);
         update.getMonsters()[map][0].setIndex(0);
 
-        update.getMonsters()[map][1] = monsterFactory.createMonster("slime");;
+        update.getMonsters()[map][1] = monsterFactory.createMonster("slime");
         update.getMonsters()[map][1].setWorldX(tileSize * 23);
         update.getMonsters()[map][1].setWorldY(tileSize * 42);
         update.getMonsters()[map][1].setIndex(1);
 
-        update.getMonsters()[map][2] = monsterFactory.createMonster("slime");;
+        update.getMonsters()[map][2] = monsterFactory.createMonster("slime");
         update.getMonsters()[map][2].setWorldX(tileSize * 24);
         update.getMonsters()[map][2].setWorldY(tileSize * 37);
         update.getMonsters()[map][2].setIndex(2);
 
-        update.getMonsters()[map][3] = monsterFactory.createMonster("slime");;
+        update.getMonsters()[map][3] = monsterFactory.createMonster("slime");
         update.getMonsters()[map][3].setWorldX(tileSize * 34);
         update.getMonsters()[map][3].setWorldY(tileSize * 42);
         update.getMonsters()[map][3].setIndex(3);
 
-        update.getMonsters()[map][4] = monsterFactory.createMonster("slime");;
+        update.getMonsters()[map][4] = monsterFactory.createMonster("slime");
         update.getMonsters()[map][4].setWorldX(tileSize * 38);
         update.getMonsters()[map][4].setWorldY(tileSize * 42);
         update.getMonsters()[map][4].setIndex(4);
 
-        update.getMonsters()[map][5] = monsterFactory.createMonster("slime");;
+        update.getMonsters()[map][5] = monsterFactory.createMonster("slime");
         update.getMonsters()[map][5].setWorldX(tileSize * 10);
         update.getMonsters()[map][5].setWorldY(tileSize * 32);
         update.getMonsters()[map][5].setIndex(5);
 
-        update.getMonsters()[map][6] = monsterFactory.createMonster("slime");;
+        update.getMonsters()[map][6] = monsterFactory.createMonster("slime");
         update.getMonsters()[map][6].setWorldX(tileSize * 11);
         update.getMonsters()[map][6].setWorldY(tileSize * 29);
         update.getMonsters()[map][6].setIndex(6);
 
-        update.getMonsters()[map][7] = monsterFactory.createMonster("slime");;
+        update.getMonsters()[map][7] = monsterFactory.createMonster("slime");
         update.getMonsters()[map][7].setWorldX(tileSize * 12);
         update.getMonsters()[map][7].setWorldY(tileSize * 30);
         update.getMonsters()[map][7].setIndex(7);
 
-        update.getMonsters()[map][8] = monsterFactory.createMonster("slime");;
+        update.getMonsters()[map][8] = monsterFactory.createMonster("slime");
         update.getMonsters()[map][8].setWorldX(tileSize * 15);
         update.getMonsters()[map][8].setWorldY(tileSize * 32);
         update.getMonsters()[map][8].setIndex(8);
 
-        update.getMonsters()[map][9] = monsterFactory.createMonster("slime");;
+        update.getMonsters()[map][9] = monsterFactory.createMonster("slime");
         update.getMonsters()[map][9].setWorldX(tileSize * 12);
         update.getMonsters()[map][9].setWorldY(tileSize * 33);
         update.getMonsters()[map][9].setIndex(9);
@@ -151,7 +142,7 @@ public class AssetManager {
     public void setInteractiveTiles() {
         controllerUpdate update = gameController.update;
         TileFactory factory = new TileFactory(gameController);
-        // MAP 0
+//         MAP 0
         map = 0;
         update.getInteractiveTiles()[map][0] = factory.createTile("Dry");
         update.getInteractiveTiles()[map][0].setWorldX(tileSize * 27);
@@ -254,9 +245,8 @@ public class AssetManager {
         update.getInteractiveTiles()[map][20].setIndex(20);
         map = 1;
         update.getInteractiveTiles()[map][19] = factory.createTile("teleport");
-        update.getInteractiveTiles()[map][19].setWorldX(tileSize * 16);
-        update.getInteractiveTiles()[map][19].setWorldY(tileSize * 13);
+        update.getInteractiveTiles()[map][19].setWorldX(tileSize * 21);
+        update.getInteractiveTiles()[map][19].setWorldY(tileSize * 14);
         update.getInteractiveTiles()[map][19].setIndex(19);
     }
 }
-//</editor-fold>

@@ -12,10 +12,10 @@ public class OBJ_Rock extends Projectile {
         super(gameController);
 
         setName("Rock Projectile");
-        setSpeed(8);
+        setSpeed(9);
         setMaxLife(80);
         setCurrentLife(getMaxLife());
-        setAttackPower(2);
+        setAttackPower(5);
         setUseCost(1);
         setAlive(false);
 
@@ -26,14 +26,14 @@ public class OBJ_Rock extends Projectile {
         int width = getgameController().getTileSize();
         int height = getgameController().getTileSize();
 
-        setUp1(setup("/images/ability/rock_down_1", width, height));
-        setUp2(setup("/images/ability/rock_down_1", width, height));
-        setDown1(setup("/images/ability/rock_down_1", width, height));
-        setDown2(setup("/images/ability/rock_down_1", width, height));
-        setLeft1(setup("/images/ability/rock_down_1", width, height));
-        setLeft2(setup("/images/ability/rock_down_1", width, height));
-        setRight1(setup("/images/ability/rock_down_1", width, height));
-        setRight2(setup("/images/ability/rock_down_1", width, height));
+        setUp1(setup("/resources/images/ability/rock_down_1", width, height));
+        setUp2(setup("/resources/images/ability/rock_down_1", width, height));
+        setDown1(setup("/resources/images/ability/rock_down_1", width, height));
+        setDown2(setup("/resources/images/ability/rock_down_1", width, height));
+        setLeft1(setup("/resources/images/ability/rock_down_1", width, height));
+        setLeft2(setup("/resources/images/ability/rock_down_1", width, height));
+        setRight1(setup("/resources/images/ability/rock_down_1", width, height));
+        setRight2(setup("/resources/images/ability/rock_down_1", width, height));
     }
 
     @Override
@@ -43,7 +43,7 @@ public class OBJ_Rock extends Projectile {
 
     @Override
     public void subtractResource(Entity user) {
-        user.setCurrentAmmo(user.getCurrentAmmo() - getUseCost());
+        user.setCurrentMana(user.getCurrentMana() - getUseCost());
     }
 
     @Override

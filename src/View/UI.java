@@ -27,7 +27,6 @@ public class UI {
     private Font maruMonica;
     private final List<String> messages = new ArrayList<>();
     private final List<Integer> messageCounter = new ArrayList<>();
-    private boolean gameFinished = false;
     private String currentDialogue;
     private int commandNumber;
     private int titleScreenState;
@@ -57,8 +56,6 @@ public class UI {
         Object coin = new OBJ_Coin_Bronze(gameController);
         this.coin = coin.getImage1();
     }
-
-
     private void setupFonts() {
         try {
             InputStream inputStream = getClass().getResourceAsStream("/resources/fonts/x12y16pxMaruMonica.ttf");
@@ -67,7 +64,6 @@ public class UI {
             e.printStackTrace();
         }
     }
-
     public void draw(Graphics2D graphics2D) {
         this.graphics2D = graphics2D;
 
@@ -112,14 +108,11 @@ public class UI {
         }
 
     }
-
-
     private void setupDefaultGraphics(Graphics2D graphics2D) {
         graphics2D.setFont(maruMonica);
         graphics2D.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
         graphics2D.setColor(Color.WHITE);
     }
-
     private void drawTitleScreen() {
         graphics2D.setColor(Color.black);
         graphics2D.fillRect(0, 0, gameController.getScreenWidth(), gameController.getScreenHeight());
@@ -131,7 +124,6 @@ public class UI {
 
         gameController.getKeyHandler().setEnterPressed(false);
     }
-
     private void drawStartScreen() {
 
         // TITLE TEXT
@@ -180,7 +172,6 @@ public class UI {
             }
         }
     }
-
     private void drawClassScreen() {
         graphics2D.setColor(Color.WHITE);
         graphics2D.setFont(graphics2D.getFont().deriveFont(Font.BOLD, 42F));
@@ -248,7 +239,6 @@ public class UI {
             }
         }
     }
-
     private void drawPlayerLife() {
         int x = gameController.getTileSize() / 2;
         int y = gameController.getTileSize() / 2;
@@ -272,7 +262,6 @@ public class UI {
             x += gameController.getTileSize();
         }
     }
-
     private void drawPlayerMana() {
         int x = (gameController.getTileSize() / 2) - 5;
         int y = (int) (gameController.getTileSize() * 1.5);
@@ -290,12 +279,10 @@ public class UI {
             x += 35;
         }
     }
-
     public void addMessage(String text) {
         messages.add(text);
         messageCounter.add(0);
     }
-
     private void drawMessages() {
         int messageX = gameController.getTileSize();
         int messageY = gameController.getTileSize() * 4;
@@ -319,7 +306,6 @@ public class UI {
             }
         }
     }
-
     private void drawPauseScreen() {
         graphics2D.setFont(graphics2D.getFont().deriveFont(Font.PLAIN, 80F));
 
@@ -329,8 +315,19 @@ public class UI {
 
         graphics2D.drawString(text, x, y);
     }
+    public void drawNotifyNotKey (){
+        graphics2D.setColor(Color.black);
+        graphics2D.drawRect(0, 0, gameController.getScreenWidth(), gameController.getScreenHeight());
 
+        graphics2D.setFont(graphics2D.getFont().deriveFont(Font.BOLD, 80F));
+        subState = 0;
+        gameController.setGameState(gameController.getDialogueState());
+        currentDialogue = "YOU don't key open check! ";
+        int x = UtilityTool.getXForCenterOfText(currentDialogue, gameController, graphics2D);
+        int y = gameController.getScreenHeight() / 2;
 
+        graphics2D.drawString(currentDialogue, x, y);
+    }
     private void drawGameClearScreen() {
         graphics2D.setColor(Color.black);
         graphics2D.drawRect(0, 0, gameController.getScreenWidth(), gameController.getScreenHeight());
@@ -343,7 +340,6 @@ public class UI {
 
         graphics2D.drawString(text, x, y);
     }
-
     private void drawDialogueScreen() {
         int x = gameController.getTileSize() * 3;
         int y = gameController.getTileSize() / 2;
@@ -358,7 +354,6 @@ public class UI {
 
         splitAndDrawDialogue(x, y);
     }
-
     private void drawCharacterScreen() {
         int frameX = gameController.getTileSize() * 2;
         int frameY = gameController.getTileSize();
@@ -380,7 +375,6 @@ public class UI {
 
         drawValues(textY, lineHeight, tailX);
     }
-
     private void drawText(int textX, int textY, int lineHeight) {
         graphics2D.drawString("Level", textX, textY);
         textY += lineHeight;
@@ -406,7 +400,6 @@ public class UI {
         textY += lineHeight + 15;
         graphics2D.drawString("Shield", textX, textY);
     }
-
     private void drawValues(int textY, int lineHeight, int tailX) {
 
         int textX;
@@ -466,14 +459,12 @@ public class UI {
 
         drawCurrentEquipment(textY, tailX);
     }
-
     private void drawCurrentEquipment(int textY, int tailX) {
         graphics2D.drawImage(gameController.getPlayer().getCurrentWeapon().getImage1(), tailX - gameController.getTileSize(), textY - 14, null);
         textY += gameController.getTileSize();
 
         graphics2D.drawImage(gameController.getPlayer().getCurrentShield().getImage1(), tailX - gameController.getTileSize(), textY - 14, null);
     }
-
     private void drawInventoryScreen(Entity entity, boolean cursor) {
 
         int frameX = 0;
@@ -523,7 +514,6 @@ public class UI {
             drawItemDescriptionText(inventory, descriptionFrameX, descriptionFrameY, descriptionFrameWidth, descriptionFrameHeight, slotCol, slotRow);
         }
     }
-
     private void drawItemsInInventory(Entity entity, int slotXStart, int slotX, int slotY, int slotSize, List<Asset> inventory) {
         for (int i = 0; i < inventory.size(); i++) {
             Asset object = inventory.get(i);
@@ -549,7 +539,6 @@ public class UI {
             }
         }
     }
-
     private void drawSelectionBox(int slotXStart, int slotYStart, int slotSize, int slotCol, int slotRow) {
         // CURSOR selection box
         int cursorX = slotXStart + (slotSize * slotCol);
@@ -561,7 +550,6 @@ public class UI {
         graphics2D.setStroke(new BasicStroke(3));
         graphics2D.drawRoundRect(cursorX, cursorY, cursorWidth, cursorHeight, 10, 10);
     }
-
     private void drawItemDescriptionText(List<Asset> inventory, int descriptionFrameX, int descriptionFrameY, int descriptionFrameWidth, int descriptionFrameHeight, int slotCol, int slotRow) {
         // DRAW DESCRIPTION TEXT
         int textX = descriptionFrameX + 20;
@@ -581,11 +569,9 @@ public class UI {
             }
         }
     }
-
     public int getItemIndexFromSlot(int slotCol, int slotRow) {
         return slotCol + (slotRow * 5);
     }
-
     private void drawOptionScreen() {
         graphics2D.setColor(Color.white);
         graphics2D.setFont(graphics2D.getFont().deriveFont(32F));
@@ -607,7 +593,6 @@ public class UI {
 
         gameController.getKeyHandler().setEnterPressed(false);
     }
-
     private void optionsTop(int frameX, int frameY) {
         int textX;
         int textY;
@@ -704,7 +689,6 @@ public class UI {
 //        // SAVE CONFIGURATION
 //        gameController.getConfig().saveConfig();
     }
-
     public void optionsFullScreenNotification(int frameX, int frameY) {
         int textX = frameX + gameController.getTileSize();
         int textY = frameY + gameController.getTileSize() * 3;
@@ -722,7 +706,6 @@ public class UI {
             commandNumber = 0;
         }
     }
-
     private void optionsControls(int frameX, int frameY) {
         int textX;
         int textY;
@@ -771,7 +754,6 @@ public class UI {
             commandNumber = 3;
         }
     }
-
     private void optionsEndGameConfirmation(int frameX, int frameY) {
         int textX = frameX + gameController.getTileSize();
         int textY = frameY + gameController.getTileSize() * 3;
@@ -809,7 +791,6 @@ public class UI {
             }
         }
     }
-
     private void drawGameOverScreen() {
         graphics2D.setColor(new Color(0, 0, 0, 150));
         graphics2D.fillRect(0, 0, gameController.getScreenWidth(), gameController.getScreenHeight());
@@ -861,7 +842,6 @@ public class UI {
 
         gameController.getKeyHandler().setEnterPressed(false);
     }
-
     private void drawTransitionScreen() {
         counter++;
         graphics2D.setColor(new Color(0, 0, 0, counter * 5));
@@ -881,7 +861,6 @@ public class UI {
             eventHandle.setPreviousEventY(player.getWorldY());
         }
     }
-
     private void drawTradeScreen() {
         switch (subState) {
             case 0 -> tradeSelect();
@@ -890,7 +869,6 @@ public class UI {
         }
         gameController.getKeyHandler().setEnterPressed(false);
     }
-
     private void tradeSelect() {
         drawDialogueScreen();
 
@@ -932,7 +910,6 @@ public class UI {
         }
 
     }
-
     private void tradeBuy() {
 
         // DRAW PLAYER INVENTORY
@@ -988,7 +965,6 @@ public class UI {
             }
         }
     }
-
     private void tradeSell() {
 
         // DRAW PLAYER INVENTORY
@@ -1041,7 +1017,6 @@ public class UI {
             }
         }
     }
-
     public void drawSubWindow(int x, int y, int width, int height) {
         Color color = new Color(0, 0, 0, 210);
         graphics2D.setColor(color);
@@ -1052,92 +1027,69 @@ public class UI {
         graphics2D.setStroke(new BasicStroke(5));
         graphics2D.drawRoundRect(x + 5, y + 5, width - 10, height - 10, 25, 25);
     }
-
     private void splitAndDrawDialogue(int x, int y) {
         for (String line : currentDialogue.split("\n")) {
             graphics2D.drawString(line, x, y);
             y += 40;
         }
     }
-
 // GETTER SETTER
     public UI setGameFinished(boolean gameFinished) {
-        this.gameFinished = gameFinished;
         return this;
     }
-
     public String getCurrentDialogue() {
         return currentDialogue;
     }
-
     public void setCurrentDialogue(String currentDialogue) {
         this.currentDialogue = currentDialogue;
     }
-
     public int getCommandNumber() {
         return commandNumber;
     }
-
     public void setCommandNumber(int commandNumber) {
         this.commandNumber = commandNumber;
     }
-
     public int getTitleScreenState() {
         return titleScreenState;
     }
-
     public UI setTitleScreenState(int titleScreenState) {
         this.titleScreenState = titleScreenState;
         return this;
     }
-
     public int getPlayerSlotCol() {
         return playerSlotCol;
     }
-
     public void setPlayerSlotCol(int playerSlotCol) {
         this.playerSlotCol = playerSlotCol;
     }
-
     public int getPlayerSlotRow() {
         return playerSlotRow;
     }
-
     public void setPlayerSlotRow(int playerSlotRow) {
         this.playerSlotRow = playerSlotRow;
     }
-
     public int getSubState() {
         return subState;
     }
-
     public void setSubState(int subState) {
         this.subState = subState;
     }
-
     public Entity getNpc() {
         return npc;
     }
-
     public void setNpc(Entity npc) {
         this.npc = npc;
     }
-
     public int getNpcSlotCol() {
         return npcSlotCol;
     }
-
     public void setNpcSlotCol(int npcSlotCol) {
         this.npcSlotCol = npcSlotCol;
     }
-
     public int getNpcSlotRow() {
         return npcSlotRow;
     }
-
     public void setNpcSlotRow(int npcSlotRow) {
         this.npcSlotRow = npcSlotRow;
     }
-
-
 }
