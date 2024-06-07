@@ -1,8 +1,6 @@
 package Model.asset.tile.interactive;
 
 import Controller.GameController;
-import Model.asset.entity.monster.BOSS_Samurai;
-import Model.asset.entity.monster.MON_Slime;
 
 public class TileFactory {
     public GameController controller;

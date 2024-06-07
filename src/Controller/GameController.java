@@ -1,13 +1,9 @@
 package Controller;
 
 import Model.ai.PathFinder;
-import Model.asset.Asset;
 import Model.asset.AssetManager;
-import Model.asset.entity.Entity;
 import Model.asset.entity.player.Player;
-import Model.asset.object.Object;
 import Model.asset.tile.TileManager;
-import Model.asset.tile.interactive.InteractiveTile;
 import Model.event.EventHandler;
 import Model.sound.SoundManager;
 import View.UI;
@@ -17,9 +13,6 @@ import Controller.util.KeyHandler;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
 /*
 Class chính , chịu trách nghiệm liên kết giữa view và model , thực hiện cập nhật game liên tục khi game bắt đầu chạy
  */
@@ -30,6 +23,7 @@ public class GameController implements Runnable {
     public int fullScreenWidth = Constants.screenWidth;
     public int fullScreenHeight = Constants.screenHeight;
     public BufferedImage tempScreen;
+
     public Graphics2D graphics2D;
     // SYSTEM
     public final KeyHandler keyHandler = new KeyHandler(this);
@@ -57,6 +51,29 @@ public class GameController implements Runnable {
     public GameController(GamePanel gp) {
         this.gp = gp;
     }
+
+    @Override
+    // thực hiện vòng lập game
+    public void run() {
+        double drawInterval = (double) 1_000_000_000 / Constants.FPS;
+        double delta = 0;
+        long lastTime = System.nanoTime();
+        long currentTime;
+
+        while (gameThread != null) {
+            currentTime = System.nanoTime();
+            delta += (currentTime - lastTime) / drawInterval;
+            lastTime = currentTime;
+
+            if (delta >= 1) {
+                update();
+                draw.drawToTempScreen();
+                draw.drawToScreen();
+                delta--;
+            }
+        }
+    }
+    // khởi tạo game
     public void setUpGame() {
 
         assetManager.setObjects();
@@ -68,6 +85,7 @@ public class GameController implements Runnable {
         tempScreen = new BufferedImage(Constants.screenWidth, Constants.screenHeight, BufferedImage.TYPE_INT_ARGB);
         graphics2D = (Graphics2D) tempScreen.getGraphics();
     }
+    // khởi tạo Thread và tiến hành chạy game
     public void startGameThread() {
         gameThread = new Thread(this);
         gameThread.start();
@@ -91,26 +109,7 @@ public class GameController implements Runnable {
         update.setCurrentMap(0);
         stopMusic();
     }
-    @Override
-    public void run() {
-        double drawInterval = (double) 1_000_000_000 / Constants.FPS;
-        double delta = 0;
-        long lastTime = System.nanoTime();
-        long currentTime;
-
-        while (gameThread != null) {
-            currentTime = System.nanoTime();
-            delta += (currentTime - lastTime) / drawInterval;
-            lastTime = currentTime;
-
-            if (delta >= 1) {
-                update();
-                draw.drawToTempScreen();
-                draw.drawToScreen();
-                delta--;
-            }
-        }
-    }
+    // cập nhật các object liên tục
     public void update() {
         if (gameState == typeGame.playState) {
             player.update();

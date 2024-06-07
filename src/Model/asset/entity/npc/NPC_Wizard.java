@@ -15,6 +15,12 @@ public class NPC_Wizard  extends NPC{
         setDialogue();
         setItems();
     }
+
+    @Override
+    public void setupAI() {
+        super.setupAI();
+    }
+
     public void getAnimationImages() {
         int width = getgameController().getTileSize();
         int height = getgameController().getTileSize();

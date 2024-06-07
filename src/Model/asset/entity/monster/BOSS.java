@@ -9,11 +9,11 @@ import Model.asset.object.usable.inventory.OBJ_Key;
 import java.awt.*;
 import java.util.Random;
 
-public class BOSS_Samurai extends Monster {
-    public BOSS_Samurai(GameController gameController) {
+public class BOSS extends Monster {
+    public BOSS(GameController gameController) {
         super(gameController);
 
-        setName("Boss Samurai");
+        setName("Boss");
         setDirection("down");
         setSpeed(1);
         setMaxLife(99);
@@ -37,15 +37,16 @@ public class BOSS_Samurai extends Monster {
     public void getAnimationImages() {
         int width = getgameController().getTileSize();
         int height = getgameController().getTileSize();
-        setUp1(setup("/resources/images/boss/boss_up_1", width, height));
-        setUp2(setup("/resources/images/boss/boss_up_2", width, height));
-        setDown1(setup("/resources/images/boss/boss_down_1", width, height));
-        setDown2(setup("/resources/images/boss/boss_down_2", width, height));
-        setLeft1(setup("/resources/images/boss/boss_left_1",width, height));
-        setLeft2(setup("/resources/images/boss/boss_left_2", width, height));
-        setRight1(setup("/resources/images/boss/boss_right_1", width, height));
-        setRight2(setup("/resources/images/boss/boss_right_2", width, height));
+        setUp1(setup("/resources/images/boss/last_boss_down_1", width, height));
+        setUp2(setup("/resources/images/boss/last_boss_down_2", width, height));
+        setDown1(setup("/resources/images/boss/last_boss_down_1", width, height));
+        setDown2(setup("/resources/images/boss/last_boss_down_2",width, height));
+        setLeft1(setup("/resources/images/boss/last_boss_down_1", width, height));
+        setLeft2(setup("/resources/images/boss/last_boss_down_2", width, height));
+        setRight1(setup("/resources/images/boss/last_boss_down_1", width, height));
+        setRight2(setup("/resources/images/boss/last_boss_down_2", width, height));
     }
+
 
     @Override
     public void damageReaction() {

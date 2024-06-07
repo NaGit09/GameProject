@@ -62,14 +62,15 @@ public class AssetManager {
         update.getNpcs()[map][0].setWorldY(tileSize * 7);
         update.getNpcs()[map][0].setIndex(0);
 
-        update.getNpcs()[map][1] = factoryNPC.CreateNPC("wizard");
-        update.getNpcs()[map][1].setWorldX(tileSize * 11);
-        update.getNpcs()[map][1].setWorldY(tileSize * 8);
+
+        update.getNpcs()[map][1] = factoryNPC.CreateNPC("oldman");
+        update.getNpcs()[map][1].setWorldX(tileSize * 25);
+        update.getNpcs()[map][1].setWorldY(tileSize * 23);
         update.getNpcs()[map][1].setIndex(1);
 
-        update.getNpcs()[map][2] = factoryNPC.CreateNPC("oldman");
-        update.getNpcs()[map][2].setWorldX(tileSize * 25);
-        update.getNpcs()[map][2].setWorldY(tileSize * 23);
+        update.getNpcs()[map][2] = factoryNPC.CreateNPC("wizard");
+        update.getNpcs()[map][2].setWorldX(tileSize * 15);
+        update.getNpcs()[map][2].setWorldY(tileSize * 11);
         update.getNpcs()[map][2].setIndex(2);
 
     }
@@ -131,7 +132,7 @@ public class AssetManager {
         update.getMonsters()[map][9].setIndex(9);
 
         map = 1;
-        update.getMonsters()[map][5] = monsterFactory.createMonster("samurai");
+        update.getMonsters()[map][5] = monsterFactory.createMonster("machine");
         update.getMonsters()[map][5].setWorldX(tileSize * 12);
         update.getMonsters()[map][5].setWorldY(tileSize * 9);
         update.getMonsters()[map][5].setIndex(5);

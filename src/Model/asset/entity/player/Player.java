@@ -4,7 +4,7 @@ import Controller.GameController;
 import Model.asset.Asset;
 import Model.asset.entity.Entity;
 import Model.asset.entity.ability.OBJ_Rock;
-import Model.asset.entity.monster.BOSS_Samurai;
+import Model.asset.entity.monster.BOSS;
 import Model.asset.object.equipment.*;
 import Model.asset.object.interactive.OBJ_Chest;
 import Model.asset.object.usable.inventory.OBJ_Key;
@@ -110,14 +110,14 @@ public class Player extends Entity {
         int height = getgameController().getTileSize();
 
         if (getCurrentWeapon() instanceof OBJ_Sword_Normal) {
-            setAttackUp1(setup("/resources/images/player/boy_attack_up_1", width, height * 2));
-            setAttackUp2(setup("/resources/images/player/boy_attack_up_2", width, height * 2));
-            setAttackDown1(setup("/resources/images/player/boy_attack_down_1", width, height * 2));
-            setAttackDown2(setup("/resources/images/player/boy_attack_down_2", width, height * 2));
-            setAttackLeft1(setup("/resources/images/player/boy_attack_left_1", width * 2, height));
-            setAttackLeft2(setup("/resources/images/player/boy_attack_left_2", width * 2, height));
-            setAttackRight1(setup("/resources/images/player/boy_attack_right_1", width * 2, height));
-            setAttackRight2(setup("/resources/images/player/boy_attack_right_2", width * 2, height));
+            setAttackUp1(setup("/resources/images/player/boy_sword_up_1", width, height * 2));
+            setAttackUp2(setup("/resources/images/player/boy_sword_up_2", width, height * 2));
+            setAttackDown1(setup("/resources/images/player/boy_sword_down_1", width, height * 2));
+            setAttackDown2(setup("/resources/images/player/boy_sword_down_2", width, height * 2));
+            setAttackLeft1(setup("/resources/images/player/boy_sword_left_1", width * 2, height));
+            setAttackLeft2(setup("/resources/images/player/boy_sword_left_2", width * 2, height));
+            setAttackRight1(setup("/resources/images/player/boy_sword_right_1", width * 2, height));
+            setAttackRight2(setup("/resources/images/player/boy_sword_right_2", width * 2, height));
         }
 
         if (getCurrentWeapon() instanceof OBJ_Axe) {
@@ -237,7 +237,7 @@ public class Player extends Entity {
 
                     checkLevelUp();
                     // GAME CLEAR SAU KHI ĐÁNH BẠI BOSS GAME
-                    if (monster instanceof BOSS_Samurai) {
+                    if (monster instanceof BOSS) {
                         gameController.setGameState(gameController.getGameClear());
                     }
 

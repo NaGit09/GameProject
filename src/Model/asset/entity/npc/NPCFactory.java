@@ -11,11 +11,11 @@ public class NPCFactory {
 
     public NPC CreateNPC(String Type) {
         switch(Type.toLowerCase()) {
-            case "wizard" -> {
-                return new NPC_Wizard(controller);
-            }
             case "oldman" -> {
                 return new NPC_OldMan(controller);
+            }
+            case "wizard" -> {
+                return new NPC_Wizard(controller);
             }
             case "merchant" -> {
                 return new NPC_Merchant(controller);

@@ -58,7 +58,7 @@ public class EventHandler {
             if (hit(0, 27, 16, "right")) {
                 damagePit();
             }
-             if (hit(0, 23, 19, "any")) {
+             if (hit(0, 19, 21, "any")) {
                 damagePit();
             }
              if (hit(0, 23, 12, "up")) {
@@ -77,9 +77,6 @@ public class EventHandler {
              if (hit(1, 21, 14, "any")) {
                  teleport(0, 10, 39);
              }
-             if (hit(1, 10, 9, "any")) {
-                speak();
-            }
 
 
         }

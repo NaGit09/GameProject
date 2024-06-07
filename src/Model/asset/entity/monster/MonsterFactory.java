@@ -14,8 +14,8 @@ public class MonsterFactory {
                 return new MON_Slime(controller);
 
             }
-            case "samurai" -> {
-                return new BOSS_Samurai(controller);
+            case "machine" -> {
+                return new BOSS(controller);
             }
             default -> {
                 return null;
