@@ -26,8 +26,9 @@ public class TileManager {
         this.mapTileNumbers = new int[gameController.getMaxMaps()][gameController.getMaxWorldColumns()][gameController.getMaxWorldRows()];
 
         getTileImage();
-        loadMap("/resources/maps/worldV3.txt", 0);
+        loadMap("/resources/maps/map.txt", 0);
         loadMap("/resources/maps/interior01.txt", 1);
+
     }
 
     public void getTileImage() {

@@ -11,8 +11,9 @@ public class OBJ_Rock extends Projectile {
     public OBJ_Rock(GameController gameController) {
         super(gameController);
 
-        setName("Rock Projectile");
-        setSpeed(9);
+
+        setName("Rockball");
+        setSpeed(6);
         setMaxLife(80);
         setCurrentLife(getMaxLife());
         setAttackPower(5);
@@ -38,7 +39,7 @@ public class OBJ_Rock extends Projectile {
 
     @Override
     public boolean haveEnoughResource(Entity user) {
-        return user.getCurrentAmmo() >= getUseCost();
+        return user.getCurrentMana() >= getUseCost();
     }
 
     @Override

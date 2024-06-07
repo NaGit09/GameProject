@@ -3,6 +3,7 @@ package Model.asset.entity.player;
 import Controller.GameController;
 import Model.asset.Asset;
 import Model.asset.entity.Entity;
+import Model.asset.entity.ability.OBJ_Fireball;
 import Model.asset.entity.ability.OBJ_Rock;
 import Model.asset.entity.monster.BOSS;
 import Model.asset.object.equipment.*;
